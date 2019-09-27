@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layouts/default">
+<div layout:fragment="head" th:remove="tag">
+  <title>ASRM</title>	
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+  <meta content="Author" name="WebThemez">
+</div>
+<body id="body">
+  <!--==========================
+    Hero Section
+  ============================-->
+  <p layout:fragment="head_top">
+		<span><img src="/assets/images/second-nb.png"></span> DASHBOARD
+  </p>
+	
+  <div id="page" layout:fragment="content"  th:remove="tag">
+  	 <div class="main-table-form2">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="inner-table-sec">
+                                <table class="table">
+                                    <b class="nb-fist-boc">
+										MONTH CLOSING
+									</b>
+                                    <tbody>
+                                        <tbody th:with="count=0">
+                                            <tr th:each="moc : ${month_closes}">
+                                                <td th:with="count=${count + 1}" th:text="${count}"></td>
+                                                <td th:text="${moc.getFname()}"></td>
+                                                <td th:text="${moc.getMargin()}">25000/-</td>
+                                                <td th:text="${moc.getFormatDateTime()}">20/09/2019</td>
+                                            </tr>
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="inner-table-sec">
+                                <h2></h2>
+                                <table class="table">
+                                    <b class="nb-fist-boc">TODAY MEETING </b>
+                                    <tbody th:with="count=0">
+	                                        <tr th:each="moc : ${todaymet}">
+	                                             <td th:with="count=${count + 1}" th:text="${count}"></td>
+	                                             <td th:text="${moc.getFname() + ' ' + moc.getLname()}"></td>
+	                                             <td th:text="${'+91 ' + moc.getCno()}">25000/-</td>
+	                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="inner-table-sec">
+                                <h2></h2>
+                                <table class="table">
+                                    <b class="nb-fist-boc">
+											EXPECTED REVENUE
+										</b>
+                                    <tbody th:with="count=0">
+                                      	<tr th:each="moc,iterator : ${expectedrev}">
+                                             <td th:text="${iterator.index+1}"></td>
+                                             <td th:text="${moc.getFname() + ' ' + moc.getLname()}"></td>
+                                             <td th:text="${moc.getExp_rev()}">25000/-</td>
+                                             <td><a th:href="@{'lead/edit/' + ${moc.getId()}}"><i class="fa fa-edit"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="inner-table-sec">
+                                <h2></h2>
+                                <table class="table">
+                                    <b class="nb-fist-boc">
+											Export Csv
+										</b>
+                                    <tbody>
+                                      	<tr>
+                                           <td>
+                                           		<form action="LeadExport" method="POST">
+                                           		<div class="row">
+                                           			<div class="col-md-6">
+                                           				<div class="form-group">
+															<label for="email">Start From </label> 
+															<input type="date" class="form-control" name="sdate" placeholder="Enter Name">
+														</div>
+                                           			</div>
+                                           			<div class="col-md-6">
+														<div class="form-group">
+															<label for="pwd">End Form</label>
+															<input type="date" class="form-control" name="edate" placeholder="Enter Name">
+														</div>
+													</div>
+												</div>
+												<div class="asrm-btn-footer">
+													<button type="submit" class="btn btn-dark">GO</button>
+												</div>
+                                           		</form>
+                                           </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+  </div>
+</body>
+</html>

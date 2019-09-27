@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/default">
+<div layout:fragment="head" th:remove="tag">
+	<title>ASRM-Lead Form</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<meta content="Author" name="WebThemez">
+	<style type="text/css">
+	.error-text{
+		color: red;
+	    font-size: 12px;
+	    margin-left: 4px;
+	}
+	</style>
+</div>
+<body id="body">
+	<p layout:fragment="head_top">
+		<span><img src="/assets/images/second-nb.png"></span> NEW LEAD
+	</p>
+	<div id="page" layout:fragment="content" th:remove="tag">
+		<div class="container-fluid">
+			<div class="main-form-asrm">
+				<form action="/leadupdate" method="POST" th:object="${lead}">
+					<div class="form-asrm-title">
+						<h2>NEW LEAD</h2>
+					</div>
+					<div class="alert alert-success" th:if="${Success != null}"  th:text="${Success}">
+					
+					</div>
+					<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+					    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p> 
+					</div>
+					<div class="form-asrm-start">
+						<div class="row">
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="email">OWNER NAME </label> 
+									<input type="text" class="form-control" id="email" th:value="${session.emp.getName() + ' ' + session.emp.getLname()}" readonly>
+									<input type="hidden" name="id" th:value="${lid}">
+								</div>
+							</div>
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="pwd">DATE AND TIME </label> 
+									<input type="text" class="form-control" th:value="${#dates.format(new java.util.Date(), 'dd-MM-YYYY')}" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="hr-border-nb">
+						<hr>
+					</div>
+					<div class="form-asrm-start">
+						<div class="row">
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="email">FIRST NAME </label> 
+									<input type="text" class="form-control" name="fname" placeholder="Enter Name" th:value="${ulead.getFname()}">
+									<p th:if="${#fields.hasErrors('fname')}" >Name Error</p>
+								</div>
+							</div>
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="pwd">LAST NAME </label>
+									 <input type="text" class="form-control" name="lname" placeholder="Enter LastName" th:value="${ulead.getLname()}">
+								
+								</div>
+							</div>
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="pwd">CONTACT</label> 
+									<input type="number" class="form-control" name="cno" placeholder="Enter Contact"  th:value="${ulead.getCno()}">
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="hr-border-nb">
+						<hr>
+					</div>
+					<div class="form-asrm-start">
+
+						<div class="row">
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="email">LEAD SOURCE</label> 
+									<select class="form-control" id="ls" name="lead_source">
+										<option value="TC">Telecalling</option>
+										<option value="CC">Cold calling</option>
+										<option value="RF">References</option>
+									</select>
+								</div>
+							</div>
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="pwd">LEAD STATUS</label> 
+									<select class="form-control" id="lt" name="lead_status">
+										<option value="DN">Done</option>
+										<option value="PR">Prospect</option>
+										<option value="NI">Not interested</option>
+									</select>
+								</div>
+							</div>
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="pwd">MEETING TYPE</label> 
+									<select class="form-control" id="mt" name="meeting_type">
+										<option value="NM">New meeting</option>
+										<option value="FP">Follow up</option>
+										<option value="JC">Joint call</option>
+										<option value="SC">Service</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="email">MARGIN</label> 
+									<input type="number" class="form-control" name="margin" placeholder="Enter Margin" value="0"  th:value="${ulead.getMargin()}">
+								</div>
+							</div>
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="pwd">EXPECTED REVENUE</label> 
+									<input type="number" class="form-control" name="exp_rev" placeholder="Enter Revenue" value="0"  th:value="${ulead.getExp_rev()}">
+								</div>
+							</div>
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="pwd">FOLLOW UP DATE</label> 
+									<input type="date" class="form-control" name="follow_date" placeholder="Enter Date"  th:value="${ulead.getFollow_date()}">
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="hr-border-nb">
+						<hr>
+					</div>
+					<div class="form-asrm-start">
+
+						<div class="row">
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="email">ADDRESS</label> 
+									<input type="text" class="form-control" name="address" placeholder="Enter Address"  th:value="${ulead.getAddress()}">
+								</div>
+							</div>
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="pwd">Remark</label> 
+									<input type="text" class="form-control" name="description" placeholder="Enter Description"  th:value="${ulead.getDescription()}">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="asrm-btn-footer">
+						<button type="reset" class="btn btn-dark" style="margin-right: 10px;">CANCLE</button>
+						<button type="submit" class="btn btn-dark">UPDATE</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<script layout:fragment="foot">
+$('#ls').val("[[${ulead.getLead_source()}]]");
+$('#lt').val("[[${ulead.getLead_status()}]]");
+$('#mt').val("[[${ulead.getMeeting_type()}]]");
+</script>
+</body>
+</html>
