@@ -38,13 +38,14 @@ public class Lead {
 	@NotEmpty(message = "Please provide a Meeting Type")
 	private String Meeting_type;
 	
+	private String joint_leader_name;
+	
 	@NotNull(message = "Please provide a Margin")
 	private long Margin;
 	
 	@NotNull(message = "Please provide a Expected Revenue")
 	private long Exp_rev;
 	
-	@NotEmpty(message = "Please provide a Follow Up Date")
 	private String Follow_date;
 	
 	@NotEmpty(message = "Please provide an Address")
@@ -102,6 +103,12 @@ public class Lead {
 	public void setMeeting_type(String meeting_type) {
 		Meeting_type = meeting_type;
 	}
+	public String getJoint_leader_name() {
+		return joint_leader_name;
+	}
+	public void setJoint_leader_name(String joint_leader_name) {
+		this.joint_leader_name = joint_leader_name;
+	}
 	public long getMargin() {
 		return Margin;
 	}
@@ -141,6 +148,13 @@ public class Lead {
 	public String getFormatDateTime()
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
+        String formatDateTime = this.update_time.format(formatter);
+        return formatDateTime;
+	}
+	
+	public String getDate()
+	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formatDateTime = this.update_time.format(formatter);
         return formatDateTime;
 	}

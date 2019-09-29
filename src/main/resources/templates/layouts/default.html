@@ -29,16 +29,18 @@
 	<section id="new-lead-form">
 		<div class="left-lead-form">
 			<div class="left-lead-icon">
-				<ul>
-					<li><a href="#"><img src="/assets/images/first-nb.png"></a>
+				<ul th:if="${session.emp.getDesignation().equals('RM')}">
+					<li><a href="home"><img src="/assets/images/first-nb.png"></a>
 					</li>
 
 					<li><a href="lead"><img src="/assets/images/second-nb.png"></a>
 					</li>
-
-					<li><a href="home"><img src="/assets/images/third-nb.png"></a>
+				</ul>
+				<ul th:if="${session.emp.getDesignation().equals('ADM')}">
+					<li><a href="#"><img src="/assets/images/first-nb.png"></a>
 					</li>
 				</ul>
+				
 			</div>
 		</div>
 		<div class="right-lead-form">
@@ -53,7 +55,9 @@
 				</div>
 
 				<div class="nav-third-tab">
-					<a href="#">Hi,<h6 class="user-text" th:text="${session.emp.getName()}">Avinash</h6> <span th:text="${#strings.substring(session.emp.getName(),0,1)}">A</span></a>
+					<a href="#">Hi,<h6 class="user-text" th:text="${session.emp.getName()}">Avinash</h6>
+					<span th:text="${#strings.substring(session.emp.getName(),0,1)}">A</span></a>
+					<a style="margin-left: 6px;" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
 				</div>
 			</div>
 			<div layout:fragment="content"></div>

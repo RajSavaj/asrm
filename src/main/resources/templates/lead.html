@@ -18,7 +18,7 @@
 </div>
 <body id="body">
 	<p layout:fragment="head_top">
-		<span><img src="assets/images/second-nb.png"></span> NEW LEAD
+		 NEW LEAD
 	</p>
 	<div id="page" layout:fragment="content" th:remove="tag">
 		<div class="container-fluid">
@@ -75,7 +75,7 @@
 							<div class="col md-6">
 								<div class="form-group">
 									<label for="pwd">CONTACT</label> 
-									<input type="number" class="form-control" name="cno" placeholder="Enter Contact">
+									<input type="text" class="form-control" name="cno" placeholder="Enter Contact">
 								</div>
 							</div>
 						</div>
@@ -111,7 +111,7 @@
 							<div class="col md-6">
 								<div class="form-group">
 									<label for="pwd">MEETING TYPE</label> 
-									<select class="form-control" name="meeting_type">
+									<select class="form-control" name="meeting_type" id="mtype">
 										<option value="NM">New meeting</option>
 										<option value="FP">Follow up</option>
 										<option value="JC">Joint call</option>
@@ -121,21 +121,22 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col md-6">
+							<div class="col md-6 exp-m">
 								<div class="form-group">
-									<label for="email">MARGIN</label> 
-									<input type="number" class="form-control" name="margin" placeholder="Enter Margin" value="0">
+									<label for="email">EXPECTED MARGIN</label> 
+									<input type="text" id="marg" class="form-control" name="margin" placeholder="Enter Margin" value="0">
 								</div>
 							</div>
-							<div class="col md-6">
+							<div class="col md-6 exp-r">
 								<div class="form-group">
 									<label for="pwd">EXPECTED REVENUE</label> 
-									<input type="number" class="form-control" name="exp_rev" placeholder="Enter Revenue" value="0">
+									<input type="text" id="exrev" class="form-control" name="exp_rev" placeholder="Enter Revenue" value="0">
 								</div>
 							</div>
+							
 							<div class="col md-6">
 								<div class="form-group">
-									<label for="pwd">FOLLOW UP DATE</label> 
+									<label for="pwd">FRESH / FOLLOW UP DATE</label> 
 									<input type="date" class="form-control" name="follow_date" placeholder="Enter Date">
 								</div>
 							</div>
@@ -149,6 +150,14 @@
 					<div class="form-asrm-start">
 
 						<div class="row">
+							
+							<div class="col md-6 part_name" style="display: none">
+								<div class="form-group">
+									<label for="pwd">PARTNER NAME</label> 
+									<input type="text"  class="form-control" name="joint_leader_name" placeholder="Enter Partner Name">
+								</div>
+							</div>
+							
 							<div class="col md-6">
 								<div class="form-group">
 									<label for="email">ADDRESS</label> 
@@ -165,7 +174,7 @@
 					</div>
 
 					<div class="asrm-btn-footer">
-						<button type="reset" class="btn btn-dark" style="margin-right: 10px;">CANCLE</button>
+						<button type="button" id="reset" class="btn btn-dark" style="margin-right: 10px;">CANCLE</button>
 						<button type="submit" class="btn btn-dark">SAVE</button>
 					</div>
 				</form>
@@ -173,4 +182,29 @@
 		</div>
 	</div>
 </body>
+<script layout:fragment="foot">
+$(document).on('change', '#mtype', function () {
+	var ser=this.value;
+	if(ser=="SC")
+	{
+		$(".part_name").hide();
+		$('#marg,#exrev').prop('readonly',true);
+	}
+	if(ser=="NM" || ser=="FP")
+	{
+		$(".part_name").hide();
+		$('#marg,#exrev').prop('readonly',false);
+	}
+	if(ser=="JC")
+	{
+		$(".part_name").show();
+		$('#marg,#exrev').prop('readonly',true);
+	}
+});
+$(document).ready(function(){
+	$("#reset").click(function(){
+		 window.history.back();
+	});
+});
+</script>
 </html>

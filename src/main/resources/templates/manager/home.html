@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="../layouts/default">
+<div layout:fragment="head" th:remove="tag">
+  <title>ASRM</title>	
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+  <meta content="Author" name="WebThemez">
+</div>
+<body id="body">
+  <!--==========================
+    Hero Section
+  ============================-->
+  <p layout:fragment="head_top">
+		<span><img src="/assets/images/second-nb.png"></span> DASHBOARD
+  </p>
+	
+  <div id="page" layout:fragment="content"  th:remove="tag">
+  	
+  </div>
+</body>
+</html>

@@ -22,7 +22,7 @@ public class Emp {
     
     private String Designation;
     
-    private String Report_id;
+    private String Manager_id;
     
 	public Long getId() {
 		return id;
@@ -88,11 +88,11 @@ public class Emp {
 		Designation = designation;
 	}
 
-	public String getReport_id() {
-		return Report_id;
+	public String getManagerId() {
+		return Manager_id;
 	}
 
-	public void setReport_id(String report_id) {
-		Report_id = report_id;
+	public void setManager_id(String manager_id) {
+		Manager_id = manager_id;
 	}
 }

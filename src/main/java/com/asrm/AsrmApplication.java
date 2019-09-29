@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-
 @SpringBootApplication
 public class AsrmApplication extends SpringBootServletInitializer  { //
 
@@ -14,6 +13,6 @@ public class AsrmApplication extends SpringBootServletInitializer  { //
 	}
 	 @Override
 	 protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-	        return builder.sources(AsrmApplication.class);
+	       return builder.sources(AsrmApplication.class);
 	 }
 }

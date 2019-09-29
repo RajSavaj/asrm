@@ -44,7 +44,7 @@ public class MainController {
 	ObjectFactory<HttpSession> httpSessionFactory;
 
 	@RequestMapping("home")
-	public String Home(Model model) {
+	public String Home(Model model,HttpServletResponse response) {
 		if (checksession()) {
 			return "redirect:/login";
 		}
@@ -53,9 +53,10 @@ public class MainController {
 		model.addAttribute("month_closes", service.leadRepository.monthclose(e.getEmp_Id()));
 		model.addAttribute("todaymet", service.leadRepository.todaylead(e.getEmp_Id()));
 		model.addAttribute("expectedrev", service.leadRepository.expect_Rev(e.getEmp_Id()));
+		model.addAttribute("feture",service.leadRepository.featureData(e.getEmp_Id()));
 		return "home";
 	}
-
+	
 	@RequestMapping("login")
 	public String Login() {
 		return "login";
@@ -67,14 +68,29 @@ public class MainController {
 		if (e != null) {
 			HttpSession session = httpSessionFactory.getObject();
 			session.setAttribute("emp", e);
-			return "redirect:/home";
+			if(e.getDesignation().equals("RM"))
+			{
+				return "redirect:/home";
+			}
+			else if(e.getDesignation().equals("LD"))
+			{
+				return "redirect:/leader/home";
+			}
+			else if(e.getDesignation().equals("MR"))
+			{
+				return "redirect:/manager/home";
+			}
+			else
+			{
+				return "redirect:/admin/home";
+			}
 		}
 		model.addAttribute("errorMessage", "Please Enter Valid Username And Password");
 		return "login";
 	}
 
 	@RequestMapping("lead")
-	public String Lead(Model model) {
+	public String Lead(Model model,HttpServletResponse response) {
 		if (checksession()) {
 
 			return "redirect:/login";
@@ -99,7 +115,7 @@ public class MainController {
 		return "redirect:/lead";
 	}
 	
-	
+
 	@GetMapping("lead/edit/{leadId}")
     public String addProductToCart(@PathVariable("leadId") Long id,Model model) {
 		if (checksession()) {return "redirect:/login";}
@@ -150,8 +166,6 @@ public class MainController {
 		}
 	}
 	
-	
-
 	boolean checksession() {
 		HttpSession session = httpSessionFactory.getObject();
 		if (session.getAttribute("emp") == null) {
@@ -159,4 +173,15 @@ public class MainController {
 		}
 		return false;
 	}
+	
+	@GetMapping("logout")
+    public String logout(HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache,no-store,private,must-revalidate,max-stale=0,post-check=0,pre-check=0");
+		response.addHeader("Pragma", "no-cache"); 
+		response.addDateHeader ("Expires", 0);
+		HttpSession session = httpSessionFactory.getObject();
+		session.invalidate();
+		return "redirect:/login";
+	}
+	
 }

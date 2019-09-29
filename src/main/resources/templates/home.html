@@ -15,7 +15,7 @@
     Hero Section
   ============================-->
   <p layout:fragment="head_top">
-		<span><img src="/assets/images/second-nb.png"></span> DASHBOARD
+		 DASHBOARD
   </p>
 	
   <div id="page" layout:fragment="content"  th:remove="tag">
@@ -26,7 +26,7 @@
                             <div class="inner-table-sec">
                                 <table class="table">
                                     <b class="nb-fist-boc">
-										MONTH CLOSING
+										THIS MONTH CLIENT ACQUISTION
 									</b>
                                     <tbody>
                                         <tbody th:with="count=0">
@@ -34,9 +34,26 @@
                                                 <td th:with="count=${count + 1}" th:text="${count}"></td>
                                                 <td th:text="${moc.getFname()}"></td>
                                                 <td th:text="${moc.getMargin()}">25000/-</td>
-                                                <td th:text="${moc.getFormatDateTime()}">20/09/2019</td>
+                                                <td th:text="${moc.getDate()}">20/09/2019</td>
                                             </tr>
                                         </tbody>
+                                </table>
+                            </div>
+                            
+                             <div class="inner-table-sec">
+                                <h2></h2>
+                                <table class="table">
+                                    <b class="nb-fist-boc">
+											EXPECTED REVENUE
+									</b>
+                                    <tbody th:with="count=0">
+                                      	<tr th:each="moc,iterator : ${expectedrev}">
+                                             <td th:text="${iterator.index+1}"></td>
+                                             <td th:text="${moc.getFname() + ' ' + moc.getLname()}"></td>
+                                             <td th:text="${moc.getExp_rev()}">25000/-</td>
+                                             <td><a  th:if="${moc.getLead_status() != 'DN'}" th:href="@{'lead/edit/' + ${moc.getId()}}"><i class="fa fa-edit"></i></a></td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -49,32 +66,26 @@
 	                                        <tr th:each="moc : ${todaymet}">
 	                                             <td th:with="count=${count + 1}" th:text="${count}"></td>
 	                                             <td th:text="${moc.getFname() + ' ' + moc.getLname()}"></td>
-	                                             <td th:text="${'+91 ' + moc.getCno()}">25000/-</td>
+	                                             <td th:text="${'+91 ' + moc.getCno()}"></td>
 	                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="col-md-6">
+                            
                             <div class="inner-table-sec">
                                 <h2></h2>
-                                <table class="table">
-                                    <b class="nb-fist-boc">
-											EXPECTED REVENUE
-										</b>
+                                 <table class="table">
+                                    <b class="nb-fist-boc">FETURE MEETING </b>
                                     <tbody th:with="count=0">
-                                      	<tr th:each="moc,iterator : ${expectedrev}">
-                                             <td th:text="${iterator.index+1}"></td>
-                                             <td th:text="${moc.getFname() + ' ' + moc.getLname()}"></td>
-                                             <td th:text="${moc.getExp_rev()}">25000/-</td>
-                                             <td><a th:href="@{'lead/edit/' + ${moc.getId()}}"><i class="fa fa-edit"></i></a></td>
-                                        </tr>
+	                                       <tr th:each="fet : ${feture}">
+	                                             <td th:with="count=${count + 1}" th:text="${count}"></td>
+	                                             <td th:text="${fet.getFname() + ' ' + fet.getLname()}"></td>
+	                                             <td th:text="${'+91 ' + fet.getCno()}"></td>
+	                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        
-                        <div class="col-md-6">
+                            
                             <div class="inner-table-sec">
                                 <h2></h2>
                                 <table class="table">
@@ -108,8 +119,8 @@
                                     </tbody>
                                 </table>
                             </div>
+                            
                         </div>
-                       
                     </div>
                 </div>
             </div>
