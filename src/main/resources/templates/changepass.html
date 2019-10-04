@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/default">
+<div layout:fragment="head" th:remove="tag">
+	<title>ASRM-Lead Form</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<meta content="Author" name="WebThemez">
+	<style type="text/css">
+	.error-text{
+		color: red;
+	    font-size: 12px;
+	    margin-left: 4px;
+	}
+	</style>
+</div>
+<body id="body">
+	<p layout:fragment="head_top">
+		 CHANGE PASSWORD
+	</p>
+	<div id="page" layout:fragment="content" th:remove="tag">
+		<div class="container-fluid">
+			<div class="main-form-asrm">
+				<form action="/changepassword" method="POST" th:object="${lead}">
+					<div class="form-asrm-title">
+						<h2>CHANGE PASSWORD</h2>
+					</div>
+					<div class="alert alert-success" th:if="${Success != null}"  th:text="${Success}">
+					</div>
+					
+					<div class="form-asrm-start">
+						<div class="row">
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="email">Password</label> 
+									<input type="password" class="form-control" id="email">
+								</div>
+							</div>
+							<div class="col md-6">
+								<div class="form-group">
+									<label for="pwd">Confirm Password</label> 
+									<input type="password" class="form-control" name="pass"  />
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="asrm-btn-footer">
+						<button type="button" id="reset" class="btn btn-dark" style="margin-right: 10px;">CANCLE</button>
+						<button type="submit" class="btn btn-dark">UPDATE</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<script layout:fragment="foot">
+$(document).ready(function(){
+	$("#reset").click(function(){
+		window.location.href =window.location.origin+"/home";
+	});
+});
+
+</script>
+</html>
