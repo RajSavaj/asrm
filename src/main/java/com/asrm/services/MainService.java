@@ -15,7 +15,7 @@ import com.asrm.repository.LeadRepository;
 @Service
 public class MainService {
 	@Autowired
-	private EmpRepository empRepository;
+	public EmpRepository empRepository;
 	
 	@Autowired
 	public LeadRepository leadRepository;
@@ -86,4 +86,6 @@ public class MainService {
 	public void saveemp(Emp emp) {
 		empRepository.save(emp);
 	}
+	
+
 }

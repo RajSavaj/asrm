@@ -45,10 +45,8 @@
 							</div>
 							<div class="col md-6">
 								<div class="form-group">
-									<label for="pwd">DATE AND TIME </label> <input type="text"
-										class="form-control"
-										th:value="${#dates.format(new java.util.Date(), 'dd-MM-YYYY')}"
-										readonly>
+									<label for="pwd">MEETING DATE</label> 
+									<input type="text" class="form-control" name="update_time" id="mdate" th:value="${#dates.format(new java.util.Date(), 'YYYY-MM-dd')}" />
 								</div>
 							</div>
 						</div>
@@ -137,7 +135,7 @@
 							<div class="col md-6">
 								<div class="form-group">
 									<label for="pwd">FRESH / FOLLOW UP DATE</label> 
-									<input type="date" class="form-control" name="follow_date" placeholder="Enter Date">
+									<input type="text" class="form-control" name="follow_date" id="fdate" placeholder="Enter Date">
 								</div>
 							</div>
 						</div>
@@ -203,8 +201,26 @@ $(document).on('change', '#mtype', function () {
 });
 $(document).ready(function(){
 	$("#reset").click(function(){
-		 window.history.back();
+		window.location.href =window.location.origin+"/home";
 	});
+	var start_date=new Date();
+	start_date.setDate(start_date.getDate() - 2);
+	var end_date=new Date();
+	$('#mdate').datepicker({
+		format:'yyyy-mm-dd',	
+        autoclose: true,
+        todayHighlight: true,
+        startDate:start_date,
+        endDate:end_date
+    });
+	
+	$('#fdate').datepicker({
+		format:'yyyy-mm-dd',	
+        autoclose: true,
+        todayHighlight: true
+    });
+	
 });
+
 </script>
 </html>

@@ -138,6 +138,27 @@ public class MainController {
 		return "redirect:/home";
 	}
 	
+	@RequestMapping("changepassword")
+	public String ChangePass(Model model,HttpServletResponse response) {
+		if (checksession()) {
+			return "redirect:/login";
+		}
+		return "changepass";
+	}
+	
+	@RequestMapping(value = "changepassword", method = RequestMethod.POST)
+	public String updatePassword(ModelMap model, @RequestParam String pass,RedirectAttributes rm) {
+		if (checksession()) {
+			return "redirect:/login";
+		}
+		HttpSession session = httpSessionFactory.getObject();
+		Emp e = (Emp) session.getAttribute("emp");
+		e.setPassword(pass);
+		service.empRepository.save(e);
+		rm.addFlashAttribute("Success", "Password successfully updated !");
+		return "redirect:/changepassword";
+	}
+	
 	@RequestMapping(value = "LeadExport", method = RequestMethod.POST)
 	public void exportCsv(HttpServletRequest request, HttpServletResponse response, @RequestParam String sdate,
 			@RequestParam String edate) {
@@ -158,7 +179,6 @@ public class MainController {
 				 String outputResult = "\n"+l.getFname()+" "+l.getLname()+","+l.getCno()+","+l.getLeadSource()+","+l.getLeadStatus()+","+l.getMeetType()+","+l.getMargin()+","+l.getExp_rev()+","+l.getFollow_date()+","+l.getAddress().replace(',', '-')+","+l.getDescription().replace(',', '-')+","+l.getFormatDateTime();
 			     outputStream.write(outputResult.getBytes());
 			}
-			//response.getOutputStream().flush();
 			response.getOutputStream().close();
 			 
 		} catch (Exception e1) {

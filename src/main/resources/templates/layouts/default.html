@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
 <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/assets/datepicker/css/bootstrap-datepicker3.min.css" />
 
 <!--Theme custom css -->
 <link rel="stylesheet" href="/assets/css/style.css">
@@ -30,10 +31,10 @@
 		<div class="left-lead-form">
 			<div class="left-lead-icon">
 				<ul th:if="${session.emp.getDesignation().equals('RM')}">
-					<li><a href="home"><img src="/assets/images/first-nb.png"></a>
+					<li><a href="/home"><img src="/assets/images/first-nb.png"></a>
 					</li>
 
-					<li><a href="lead"><img src="/assets/images/second-nb.png"></a>
+					<li><a href="/lead"><img src="/assets/images/second-nb.png"></a>
 					</li>
 				</ul>
 				<ul th:if="${session.emp.getDesignation().equals('ADM')}">
@@ -56,8 +57,15 @@
 
 				<div class="nav-third-tab">
 					<a href="#">Hi,<h6 class="user-text" th:text="${session.emp.getName()}">Avinash</h6>
-					<span th:text="${#strings.substring(session.emp.getName(),0,1)}">A</span></a>
-					<a style="margin-left: 6px;" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+					<span id="main-profile" th:text="${#strings.substring(session.emp.getName(),0,1)}">A</span></a>
+					<div class="drop" id="menudiv">
+						<ol>
+						    <li class="divider" id="user-profile-link">
+						    	<a href="/changepassword" >Change Password</a>
+						    </li>
+		                    <li><a href="/logout">Log Out</a></li>
+						</ol>
+					</div>
 				</div>
 			</div>
 			<div layout:fragment="content"></div>
@@ -70,6 +78,16 @@
 		</div>
 	</section>
 	<script src="/assets/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		$("#main-profile, #menudiv").hover(
+		    function(){
+		        $("#menudiv").show();
+		    },
+		    function(){
+		        $("#menudiv").hide();
+		    }
+		);
+	</script>
 	<script src="/assets/js/Popper.js"></script>
 	<script src="/assets/js/bootstrap.min.js"></script>
 	<script src="/assets/js/owl.carousel.min.js"></script>
@@ -77,6 +95,8 @@
 	<script src="/assets/js/jquery.parallax.js"></script>
 	<script src="/assets/js/extensions/revolution.extension.parallax.min.js"></script>
 	<script src="/assets/js/main.js"></script>
+	<script src="/assets/datepicker/js/bootstrap-datepicker.min.js"></script>
 	<script layout:fragment="foot"></script>
+	
 </body>
 </html>

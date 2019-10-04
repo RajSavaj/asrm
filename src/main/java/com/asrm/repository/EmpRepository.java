@@ -2,6 +2,7 @@ package com.asrm.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
 import com.asrm.model.Emp;
 import com.asrm.model.Lead;
@@ -16,4 +17,8 @@ public interface EmpRepository  extends JpaRepository<Emp, Long>  {
 	 
 	 @Query(value ="SELECT * FROM `employee` WHERE `designation`=?1", nativeQuery = true)
 	 List<Emp> ListHighEmp(String desg);
+	
+	 @Modifying 
+	 @Query(value="update employee set password=?1 where Emp_Id=?2",nativeQuery = true)
+	 Emp updatePass(String pass, String empid);
 }

@@ -9,6 +9,17 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
   <meta content="Author" name="WebThemez">
+  <style>
+  .main-table-form2 {
+    padding: 32px 0px;
+    overflow: hidden;
+    height: 90vh;
+	    overflow-y: scroll;
+	}
+	body{
+		overflow-y: hidden;
+		}
+  </style>
 </div>
 <body id="body">
   <!--==========================
@@ -30,8 +41,8 @@
 									</b>
                                     <tbody>
                                         <tbody th:with="count=0">
-                                            <tr th:each="moc : ${month_closes}">
-                                                <td th:with="count=${count + 1}" th:text="${count}"></td>
+                                            <tr th:each="moc,iterator : ${month_closes}">
+                                                <td th:text="${iterator.index+1}"></td>
                                                 <td th:text="${moc.getFname()}"></td>
                                                 <td th:text="${moc.getMargin()}">25000/-</td>
                                                 <td th:text="${moc.getDate()}">20/09/2019</td>
@@ -44,7 +55,7 @@
                                 <h2></h2>
                                 <table class="table">
                                     <b class="nb-fist-boc">
-											EXPECTED REVENUE
+											MY LEAD
 									</b>
                                     <tbody th:with="count=0">
                                       	<tr th:each="moc,iterator : ${expectedrev}">
@@ -63,8 +74,8 @@
                                 <table class="table">
                                     <b class="nb-fist-boc">TODAY MEETING </b>
                                     <tbody th:with="count=0">
-	                                        <tr th:each="moc : ${todaymet}">
-	                                             <td th:with="count=${count + 1}" th:text="${count}"></td>
+	                                        <tr th:each="moc,iterator : ${todaymet}">
+	                                              <td th:text="${iterator.index+1}"></td>
 	                                             <td th:text="${moc.getFname() + ' ' + moc.getLname()}"></td>
 	                                             <td th:text="${'+91 ' + moc.getCno()}"></td>
 	                                        </tr>
@@ -75,11 +86,12 @@
                             <div class="inner-table-sec">
                                 <h2></h2>
                                  <table class="table">
-                                    <b class="nb-fist-boc">FETURE MEETING </b>
+                                    <b class="nb-fist-boc">FUTURE MEETING </b>
                                     <tbody th:with="count=0">
-	                                       <tr th:each="fet : ${feture}">
-	                                             <td th:with="count=${count + 1}" th:text="${count}"></td>
+	                                       <tr th:each="fet,iterator : ${feture}">
+	                                             <td th:text="${iterator.index+1}"></td>
 	                                             <td th:text="${fet.getFname() + ' ' + fet.getLname()}"></td>
+	                                             <td th:text="${fet.getFollow_date()}"></td>
 	                                             <td th:text="${'+91 ' + fet.getCno()}"></td>
 	                                        </tr>
                                     </tbody>

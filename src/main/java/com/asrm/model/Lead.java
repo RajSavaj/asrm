@@ -1,7 +1,11 @@
 package com.asrm.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -142,8 +146,16 @@ public class Lead {
 	public LocalDateTime getUpdate_time() {
 		return update_time;
 	}
-	public void setUpdate_time(LocalDateTime update_time) {
-		this.update_time = update_time;
+	public void setUpdate_time(String update_time) {
+		SimpleDateFormat udate_format = new SimpleDateFormat("yyyy-mm-dd");
+		Date sd;
+		try {
+			sd = udate_format.parse(update_time);
+			this.update_time = sd.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	public String getFormatDateTime()
 	{
