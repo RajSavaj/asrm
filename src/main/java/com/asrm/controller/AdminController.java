@@ -37,7 +37,6 @@ public class AdminController {
 		if (checksession()) {
 			return "redirect:/login";
 		}
-		System.out.println(emp.getEmp_Id());
 		service.saveemp(emp);
 		rm.addFlashAttribute("Success", "Employee successfully saved");
 		return "redirect:/admin/home";

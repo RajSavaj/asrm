@@ -26,4 +26,13 @@ public interface LeadRepository extends JpaRepository<Lead, Long> {
 	 
 	 @Query(value="SELECT * FROM lead WHERE  follow_date BETWEEN DATE_ADD(CURDATE(),INTERVAL 1 DAY) AND DATE_ADD(follow_date, INTERVAL 7 DAY) AND  emp_id=?", nativeQuery = true)
 	 List<Lead> featureData(String id);
+	
+	 @Query(value="SELECT l.*,CONCAT(e.name,' ',e.lname)  FROM lead l,employee e  WHERE e.emp_id=l.emp_id AND DATE(l.update_time) BETWEEN  ?1 AND  ?2 AND e.manager_id=?3",nativeQuery = true)
+	 List<Object[]> leadecv(String sdate,String edate,String lid);
+	 
+	 @Query(value="select COUNT(*) FROM lead where emp_id=?1 AND DATE_FORMAT(follow_date, '%Y-%m-%d')  = CURDATE()",nativeQuery = true)
+	 int countRm(String rid);
+
+	 @Query(value="select COUNT(*) FROM lead where emp_id=?1 AND lead_status='DN' AND YEAR(update_time) = YEAR(CURRENT_DATE()) AND  MONTH(update_time) = MONTH(CURRENT_DATE()) ",nativeQuery = true)
+	 int countMonthRmLead(String rid);
 }

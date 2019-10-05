@@ -452,7 +452,7 @@ button.nb-secel-btn {
 	margin: 0 auto;
 	font-size: 17px !important;
 	display: block;
-	padding: 9px 32px !important;
+	padding: 9px 64px !important;
 	background-color: #848383 !important;
 }
 
@@ -539,13 +539,13 @@ button.nb-secel-btn {
 	padding: 13px;
 }
 
-div#datetimepicker1 {
-	width: 50%;
+div.date-timepicker {
+	width: 70%;
 	margin: 0 auto;
 }
 
-#datetimepicker1 input {
-	border-radius: 50px;
+.date-timepicker input {
+	border-radius: 50px !important;
 	text-align: center;
 	background-color: #f1f1f1;
 }

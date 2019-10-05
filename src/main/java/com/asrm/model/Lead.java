@@ -59,6 +59,7 @@ public class Lead {
 	
 	private LocalDateTime update_time;
 	
+	
 	public Long getId() {
 		return id;
 	}
@@ -155,7 +156,6 @@ public class Lead {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	public String getFormatDateTime()
 	{
@@ -208,6 +208,10 @@ public class Lead {
 		}
 		else if(Meeting_type.equals("JC")){
 			return "Joint call";
+		}
+		else if(Meeting_type.equals("FM"))
+		{
+			return "Fresh Meeting";
 		}
 		else{
 			return "Service";

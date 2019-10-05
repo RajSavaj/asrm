@@ -17,8 +17,17 @@ public interface EmpRepository  extends JpaRepository<Emp, Long>  {
 	 
 	 @Query(value ="SELECT * FROM `employee` WHERE `designation`=?1", nativeQuery = true)
 	 List<Emp> ListHighEmp(String desg);
-	
-	 @Modifying 
-	 @Query(value="update employee set password=?1 where Emp_Id=?2",nativeQuery = true)
-	 Emp updatePass(String pass, String empid);
-}
+	 
+	 @Query(value="SELECT * FROM `employee` WHERE `designation`='LD'",nativeQuery = true)
+	 List<Emp> ListLeader();
+	 
+	 @Query(value="SELECT * FROM `employee` WHERE `manager_id`=?1",nativeQuery = true)
+	 List<Emp> ListRm(String lid);
+	 
+	 
+	 @Query(value="select COUNT(*) FROM lead where emp_id in (select emp_id FROM employee WHERE manager_id=?1) AND DATE_FORMAT(follow_date, '%Y-%m-%d')  = CURDATE()",nativeQuery = true)
+	 int leadcount(String lid);
+	 
+	 @Query(value="select COUNT(*) FROM lead where emp_id in (select emp_id FROM employee WHERE manager_id=?1) AND lead_status='DN' AND YEAR(update_time) = YEAR(CURRENT_DATE()) AND  MONTH(update_time) = MONTH(CURRENT_DATE()) ",nativeQuery = true)
+	 int MonthLeadDone(String lid);
+}	

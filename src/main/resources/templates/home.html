@@ -112,13 +112,13 @@
                                            			<div class="col-md-6">
                                            				<div class="form-group">
 															<label for="email">Start From </label> 
-															<input type="date" class="form-control" name="sdate" placeholder="Enter Name">
+															<input type="text" class="form-control" id="sdate" name="sdate" placeholder="Select start date">
 														</div>
                                            			</div>
                                            			<div class="col-md-6">
 														<div class="form-group">
 															<label for="pwd">End Form</label>
-															<input type="date" class="form-control" name="edate" placeholder="Enter Name">
+															<input type="text" class="form-control" id="edate" name="edate" placeholder="Select end date">
 														</div>
 													</div>
 												</div>
@@ -137,5 +137,22 @@
                 </div>
             </div>
   </div>
+<script layout:fragment="foot">
+$(document).ready(function(){
+	$('#sdate').datepicker({
+		format:'mm-dd-yyyy',	
+        autoclose: true,
+        todayHighlight: true
+    });
+	
+	$('#edate').datepicker({
+		format:'mm-dd-yyyy',	
+        autoclose: true,
+        todayHighlight: true
+    });
+	
+});
+
+</script>
 </body>
 </html>

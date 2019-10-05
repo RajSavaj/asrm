@@ -19,6 +19,7 @@
 
 <!--Theme Responsive css-->
 <link rel="stylesheet" href="/assets/css/responsive.css" />
+<link rel="stylesheet" type="text/css" href="/assets/daterangepicker/daterangepicker.css" />
 <style>
 .user-text{
 	display: inline;
@@ -38,10 +39,17 @@
 					</li>
 				</ul>
 				<ul th:if="${session.emp.getDesignation().equals('ADM')}">
-					<li><a href="#"><img src="/assets/images/first-nb.png"></a>
+					<li><a href="/admin/home"><img src="/assets/images/first-nb.png"></a>
 					</li>
 				</ul>
-				
+				<ul th:if="${session.emp.getDesignation().equals('LD')}">
+					<li><a href="/leader/home"><img src="/assets/images/first-nb.png"></a>
+					</li>
+				</ul>
+				<ul th:if="${session.emp.getDesignation().equals('MR')}">
+					<li><a href="/manager/home"><img src="/assets/images/first-nb.png"></a>
+					</li>
+				</ul>
 			</div>
 		</div>
 		<div class="right-lead-form">
@@ -96,7 +104,8 @@
 	<script src="/assets/js/extensions/revolution.extension.parallax.min.js"></script>
 	<script src="/assets/js/main.js"></script>
 	<script src="/assets/datepicker/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" src="/assets/js/moment.min.js"></script>
+	<script type="text/javascript" src="/assets/daterangepicker/daterangepicker.min.js"></script>
 	<script layout:fragment="foot"></script>
-	
 </body>
 </html>

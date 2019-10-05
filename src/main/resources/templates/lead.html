@@ -114,6 +114,7 @@
 										<option value="FP">Follow up</option>
 										<option value="JC">Joint call</option>
 										<option value="SC">Service</option>
+										<option value="FM">Fresh Meeting</option>
 									</select>
 								</div>
 							</div>
@@ -188,7 +189,7 @@ $(document).on('change', '#mtype', function () {
 		$(".part_name").hide();
 		$('#marg,#exrev').prop('readonly',true);
 	}
-	if(ser=="NM" || ser=="FP")
+	if(ser=="NM" || ser=="FP" || ser=="FM")
 	{
 		$(".part_name").hide();
 		$('#marg,#exrev').prop('readonly',false);

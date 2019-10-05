@@ -2,13 +2,20 @@
 <html lang="en"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorator="../layouts/default">
+  layout:decorator="/layouts/default">
 <div layout:fragment="head" th:remove="tag">
   <title>ASRM</title>	
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
   <meta content="Author" name="WebThemez">
+  <style>
+  .text-met{
+ 	color: #6b6767;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  </style>
 </div>
 <body id="body">
   <!--==========================
@@ -19,7 +26,70 @@
   </p>
 	
   <div id="page" layout:fragment="content"  th:remove="tag">
-  	
-  </div>
+  	<div class="main-form-asrm">
+		<div class="row">
+			
+			<div class="col-lg-4 col-md-4" th:each="leader : ${empservices.ListLeader()}">
+				<div class="row">
+					<div class="col-lg-12 col-md-5 col-xs-12">
+						<div class="inner-table-sec-admin">
+							<table class="table">
+								<b class="nb-fist-boc" th:text="${leader.getName() + ' ' + leader.getLname()}"> AVINASH</b>
+								<tbody th:with="count=0">
+									 <tr>
+									    <td colspan="2">
+									       <div class="row">									     
+												<div class="col-md-6">
+													<h5 class="text-met">Today Team Meeting</h5>
+													<h1 class="text-center" th:text="${empservices.leadcount(leader.getEmp_Id())}">08</h1>
+											  	</div>
+												<div class="col-md-6">
+													<h5 class="text-met text-center" >Month Closing</h5>
+													 <h1 class="text-center" th:text="${empservices.MonthLeadDone(leader.getEmp_Id())}">19</h1>
+												</div>
+											</div>
+									     </td>
+									</tr>
+									<tr th:each="rm,iterator : ${empservices.ListRm(leader.getEmp_Id())}">
+									    <td th:text="${iterator.index+1}">1</td>
+									    <td th:text="${rm.getName() + ' ' + rm.getLname()}">Kaushik Lakhani</td>
+									</tr>
+								</tbody>
+							 </table>
+							 <form  th:action="@{/manager/report/__${leader.getEmp_Id()}__}">
+								 <div class="row">
+								 	<div class='col-sm-12'>
+										 <div class="form-group">
+										      <div class='input-group date date-timepicker'>
+										          <input type='text' class="form-control" name="daterange" placeholder="Select Date " />
+										          <span class="input-group-addon">
+										              <span class="glyphicon glyphicon-calendar"></span>
+										          </span>
+										       </div>
+										  </div>
+									 </div>
+								</div>
+								 <button type="submit" class="btn btn-primary nb-login-arh icon-left nb-secel-btn"> Download Excel</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+ </div>
+  
+  <script  layout:fragment="foot">
+  $(function() {
+	  $('input[name="daterange"]').daterangepicker({
+	    opens: 'auto',
+	    locale: {
+            format: 'YYYY/MM/DD'
+        }
+	  }, function(start, end, label) {
+	    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+	  });
+   });
+  </script>
 </body>
 </html>
