@@ -14,6 +14,23 @@
 	    font-size: 12px;
 	    margin-left: 4px;
 	}
+	.main-form-asrm{
+		height: 90vh !IMPORTANT;
+		overflow: hidden;
+   	 	overflow-y: scroll;
+	}
+	body{
+		overflow-y: hidden;
+	}
+	input[name="fname"],input[name="lname"]{
+	 	text-transform: capitalize;
+	}
+	#add_msg,#lname_msg,#mno_msg,#fname_msg{
+		display:none;
+	}
+	.invalid-feedback{
+		display: block !important;
+	}
 	</style>
 </div>
 <body id="body">
@@ -22,8 +39,8 @@
 	</p>
 	<div id="page" layout:fragment="content" th:remove="tag">
 		<div class="container-fluid">
-			<div class="main-form-asrm">
-				<form action="lead" method="POST" th:object="${lead}">
+			<div class="main-form-asrm" id="scrool-gradient">
+				<form autocomplete="off" id="lead" action="lead" method="POST" th:object="${lead}">
 					<div class="form-asrm-title">
 						<h2>NEW LEAD</h2>
 					</div>
@@ -35,7 +52,7 @@
 					</div>
 					<div class="form-asrm-start">
 						<div class="row">
-							<div class="col md-6">
+							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="email">OWNER NAME </label> <input type="text"
 										class="form-control" id="email"
@@ -43,7 +60,7 @@
 										readonly>
 								</div>
 							</div>
-							<div class="col md-6">
+							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="pwd">MEETING DATE</label> 
 									<input type="text" class="form-control" name="update_time" id="mdate" th:value="${#dates.format(new java.util.Date(), 'YYYY-MM-dd')}" />
@@ -56,24 +73,25 @@
 					</div>
 					<div class="form-asrm-start">
 						<div class="row">
-							<div class="col md-6">
+							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="email">FIRST NAME </label> 
-									<input type="text" class="form-control" name="fname" placeholder="Enter Name">
-									<p th:if="${#fields.hasErrors('fname')}">Name Error</p>
+									<input type="text" id="fname" class="form-control" name="fname" placeholder="Enter Name">
+									<div id="fname_msg">Please enter name.</div>
 								</div>
 							</div>
-							<div class="col md-6">
+							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="pwd">LAST NAME </label>
-									 <input type="text" class="form-control" name="lname" placeholder="Enter Name">
-									 <p th:if="${#fields.hasErrors('fname')}" th:errors="*{all}">Name Error</p>
+									 <input type="text" id="lname" class="form-control" name="lname" placeholder="Enter Name">
+									 <div id="lname_msg">Please enter name.</div>
 								</div>
 							</div>
-							<div class="col md-6">
+							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="pwd">CONTACT</label> 
-									<input type="text" class="form-control" name="cno" placeholder="Enter Contact">
+									<input type="text" id="mno" class="form-control" name="cno" placeholder="Enter Contact">
+									<div id="mno_msg">Please provide valid mobile number.</div>
 								</div>
 							</div>
 						</div>
@@ -86,7 +104,7 @@
 					<div class="form-asrm-start">
 
 						<div class="row">
-							<div class="col md-6">
+							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="email">LEAD SOURCE</label> 
 									<select class="form-control" name="lead_source">
@@ -96,7 +114,7 @@
 									</select>
 								</div>
 							</div>
-							<div class="col md-6">
+							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="pwd">LEAD STATUS</label> 
 									<select class="form-control" name="lead_status">
@@ -106,7 +124,7 @@
 									</select>
 								</div>
 							</div>
-							<div class="col md-6">
+							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="pwd">MEETING TYPE</label> 
 									<select class="form-control" name="meeting_type" id="mtype">
@@ -120,20 +138,20 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col md-6 exp-m">
+							<div class="col-md-6 col-sm-12 exp-m">
 								<div class="form-group">
 									<label for="email">EXPECTED MARGIN</label> 
 									<input type="text" id="marg" class="form-control" name="margin" placeholder="Enter Margin" value="0">
 								</div>
 							</div>
-							<div class="col md-6 exp-r">
+							<div class="col-md-6 col-sm-12 exp-r">
 								<div class="form-group">
 									<label for="pwd">EXPECTED REVENUE</label> 
 									<input type="text" id="exrev" class="form-control" name="exp_rev" placeholder="Enter Revenue" value="0">
 								</div>
 							</div>
 							
-							<div class="col md-6">
+							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="pwd">FRESH / FOLLOW UP DATE</label> 
 									<input type="text" class="form-control" name="follow_date" id="fdate" placeholder="Enter Date">
@@ -150,20 +168,21 @@
 
 						<div class="row">
 							
-							<div class="col md-6 part_name" style="display: none">
+							<div class="col-md-6 col-sm-12 part_name" style="display: none">
 								<div class="form-group">
 									<label for="pwd">PARTNER NAME</label> 
 									<input type="text"  class="form-control" name="joint_leader_name" placeholder="Enter Partner Name">
 								</div>
 							</div>
 							
-							<div class="col md-6">
+							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="email">ADDRESS</label> 
-									<input type="text" class="form-control" name="address" placeholder="Enter Address">
+									<input type="text" id="add" class="form-control" name="address" placeholder="Enter Address">
+									<div id="add_msg">Please enter address</div>
 								</div>
 							</div>
-							<div class="col md-6">
+							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="pwd">Remark</label> 
 									<input type="text" class="form-control" name="description" placeholder="Enter Description">
@@ -205,21 +224,66 @@ $(document).ready(function(){
 		window.location.href =window.location.origin+"/home";
 	});
 	var start_date=new Date();
-	start_date.setDate(start_date.getDate() - 2);
-	var end_date=new Date();
-	$('#mdate').datepicker({
-		format:'yyyy-mm-dd',	
-        autoclose: true,
-        todayHighlight: true,
-        startDate:start_date,
-        endDate:end_date
-    });
+	if(start_date.getDay()==1)
+	{
+		start_date.setDate(start_date.getDate() - 2);
+		var end_date=new Date();
+		$('#mdate').datepicker({
+			format:'yyyy-mm-dd',	
+	        autoclose: true,
+	        todayHighlight: true,
+	        startDate:start_date,
+	        endDate:end_date
+	    });
+	}
+	else
+	{
+		$('#mdate').prop('disabled', true);
+	}
 	
 	$('#fdate').datepicker({
 		format:'yyyy-mm-dd',	
         autoclose: true,
         todayHighlight: true
     });
+	
+	
+	$('#lead').submit(function() {
+	    var res = true;
+	    $("#add_msg,#lname_msg,#mno_msg,#fname_msg").removeClass('invalid-feedback');
+	    $("#fname,#lname,#mno,#add").removeClass('is-invalid');
+	    
+	    var fname=$("#fname");
+		var lname=$("#lname");
+		var   mno=$("#mno");
+		var   add=$("#add");
+		
+		if(add.val().trim().length < 1){
+			res=false;
+			$(add).addClass('is-invalid');
+			$("#add_msg").addClass('invalid-feedback');
+		}
+		
+		if(mno.val().trim().length!=10){
+			res=false;
+			$(mno).addClass('is-invalid');
+			$("#mno_msg").addClass('invalid-feedback');
+		}
+		
+		if(lname.val().trim().length < 1){
+			res=false;
+			$(lname).addClass('is-invalid');
+			$("#lname_msg").addClass('invalid-feedback');
+		}
+		
+		if(fname.val().trim().length < 1){
+			res=false;
+			$(fname).addClass('is-invalid');
+			$("#fname_msg").addClass('invalid-feedback');
+		}
+		$('#scrool-gradient').animate({scrollTop: $(fname).offset().top}, 1000);
+	    return res; 
+	});
 	
 });
 

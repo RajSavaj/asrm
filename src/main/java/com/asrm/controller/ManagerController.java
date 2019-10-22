@@ -2,6 +2,7 @@ package com.asrm.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
@@ -56,7 +57,7 @@ public class ManagerController {
 		String column ="RM Name,Name,Mobile No,Lead Source,Lead Status,Meeting Type,Margin,Expected Revenue,Followup date,Address,Description,Update Time"; 
 		outputStream.write(column.getBytes());
 		for (Object[] o : objects) {
-			String outputResult="\n"+o[16]+","+o[6]+" "+o[10]+","+" "+o[2]+","+LeadStatic.getLeadSource((String) o[8])+","+LeadStatic.getLeadStatus((String)o[9])+","+LeadStatic.getMeetType((String) o[12])+","+o[11]+","+o[5]+","+o[7]+","+((String) o[1]).replace(',', '-')+","+((String)o[3]).replace(',', '-')+","+o[14];
+			String outputResult="\n"+o[15]+","+o[6]+" "+o[10]+","+" "+o[2]+","+LeadStatic.getLeadSource((String) o[8])+","+LeadStatic.getLeadStatus((String)o[9])+","+LeadStatic.getMeetType((String) o[12])+","+o[11]+","+o[5]+","+o[7]+","+((String) o[1]).replace(',', '-')+","+((String)o[3]).replace(',', '-')+","+LeadStatic.getFormatDateTime((Timestamp) o[14]);
 			outputStream.write(outputResult.getBytes());
 		}
 		response.getOutputStream().close();

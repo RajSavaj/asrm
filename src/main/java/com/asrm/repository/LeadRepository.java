@@ -18,7 +18,7 @@ public interface LeadRepository extends JpaRepository<Lead, Long> {
 	 @Query(value ="SELECT *  FROM lead  WHERE YEAR(update_time) = YEAR(CURRENT_DATE()) AND  MONTH(update_time) = MONTH(CURRENT_DATE()) AND emp_id= ?1 ORDER BY (CASE WHEN `lead_status` = 'DN' THEN 1 ELSE 0 END)", nativeQuery = true)
 	 List<Lead> expect_Rev(String empid);
 	 
-	 @Query(value ="SELECT *  FROM lead  WHERE DATE(update_time) BETWEEN  ?1 AND  ?2 AND emp_id= ?3 ", nativeQuery = true)
+	 @Query(value ="SELECT *  FROM lead  WHERE DATE(update_time) BETWEEN  DATE_FORMAT( STR_TO_DATE(?1, '%d-%m-%Y') , '%Y/%m/%d')  AND  DATE_FORMAT( STR_TO_DATE(?2, '%d-%m-%Y' ) ,'%Y/%m/%d') AND emp_id= ?3", nativeQuery = true)
 	 List<Lead> exportCsv(String sdate,String edate,String empid);
 	 
 	 @Query(value ="SELECT *  FROM lead  WHERE id=?1 ", nativeQuery = true)
@@ -35,4 +35,5 @@ public interface LeadRepository extends JpaRepository<Lead, Long> {
 
 	 @Query(value="select COUNT(*) FROM lead where emp_id=?1 AND lead_status='DN' AND YEAR(update_time) = YEAR(CURRENT_DATE()) AND  MONTH(update_time) = MONTH(CURRENT_DATE()) ",nativeQuery = true)
 	 int countMonthRmLead(String rid);
+	 
 }

@@ -1,3 +1,4 @@
+
 package com.asrm.controller;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -110,6 +112,7 @@ public class MainController {
 		HttpSession session = httpSessionFactory.getObject();
 		Emp e = (Emp) session.getAttribute("emp");
 		lead.setEmpId(e.getEmp_Id());
+		System.out.println(lead.getUpdate_time());
 		service.saveLead(lead);
 		rm.addFlashAttribute("Success", "Your lead successfully saved");
 		return "redirect:/lead";
@@ -138,25 +141,26 @@ public class MainController {
 		return "redirect:/home";
 	}
 	
-	@RequestMapping("changepassword")
-	public String ChangePass(Model model,HttpServletResponse response) {
-		if (checksession()) {
-			return "redirect:/login";
-		}
-		return "changepass";
-	}
+	
 	
 	@RequestMapping(value = "changepassword", method = RequestMethod.POST)
-	public String updatePassword(ModelMap model, @RequestParam String pass,RedirectAttributes rm) {
-		if (checksession()) {
-			return "redirect:/login";
+	@ResponseBody
+	public String updatePassword(ModelMap model, @RequestParam(required = false) String pass) {
+		if(pass==null)
+		{
+			return "{\"error\":0}";
 		}
-		HttpSession session = httpSessionFactory.getObject();
-		Emp e = (Emp) session.getAttribute("emp");
-		e.setPassword(pass);
-		service.empRepository.save(e);
-		rm.addFlashAttribute("Success", "Password successfully updated !");
-		return "redirect:/changepassword";
+		else
+		{
+			if (checksession()) {
+				return "{\"error\":0}";
+			}
+			HttpSession session = httpSessionFactory.getObject();
+			Emp e = (Emp) session.getAttribute("emp");
+			e.setPassword(pass);
+			service.empRepository.save(e);
+			return "{\"success\":1}";
+		}
 	}
 	
 	@RequestMapping(value = "LeadExport", method = RequestMethod.POST)
@@ -203,5 +207,12 @@ public class MainController {
 		session.invalidate();
 		return "redirect:/login";
 	}
+	
+	@RequestMapping("Test")
+	public String test() {
+		return "test";
+	}
+	
+
 	
 }

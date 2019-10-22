@@ -148,14 +148,9 @@ public class Lead {
 		return update_time;
 	}
 	public void setUpdate_time(String update_time) {
-		SimpleDateFormat udate_format = new SimpleDateFormat("yyyy-mm-dd");
-		Date sd;
-		try {
-			sd = udate_format.parse(update_time);
-			this.update_time = sd.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		String str = update_time+" 12:00";
+		DateTimeFormatter udate_format =  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		this.update_time=LocalDateTime.parse(str,udate_format);
 	}
 	public String getFormatDateTime()
 	{

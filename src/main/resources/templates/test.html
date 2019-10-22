@@ -1,0 +1,105 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/assets/datepicker/css/bootstrap-datepicker3.min.css" />
+<!--Theme custom css -->
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<!--Theme Responsive css-->
+<link rel="stylesheet" href="/assets/css/responsive.css" />
+<link rel="stylesheet" type="text/css" href="/assets/daterangepicker/daterangepicker.css" />
+<style>
+.user-text{
+	display: inline;
+    font-weight: 400;
+}
+</style>
+</head>
+<body id="body">
+	<section id="new-lead-form">
+		<div class="left-lead-form">
+			<div class="left-lead-icon">
+				<ul>
+					<li><a href="/home"><img src="/assets/images/first-nb.png"></a>
+					</li>
+
+					<li><a href="/lead"><img src="/assets/images/second-nb.png"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="right-lead-form">
+			<div class="right-nav-top">
+				<div class="nav-first-tab">
+					<p >DASHBOARD</p>
+				</div>
+				<div class="nav-second-tab">
+					<p>WelCome To ASRM</p>
+				</div>
+
+				<div class="nav-third-tab">
+					<a href="#">Hi,<h6 class="user-text" >Avinash</h6>
+					<span id="main-profile">A</span></a>
+					<div class="drop" id="menudiv">
+						<ol>
+						    <li class="divider" id="user-profile-link">
+						    	<a href="/changepassword" >Change Password</a>
+						    </li>
+		                    <li><a href="/logout">Log Out</a></li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5"></div>
+			</div>
+			<div class="col-md-7"></div>
+		</div>
+	</section>
+	<script src="/assets/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		$("#main-profile, #menudiv").hover(
+		    function(){
+		        $("#menudiv").show();
+		    },
+		    function(){
+		        $("#menudiv").hide();
+		    }
+		);
+	</script>
+	<script src="/assets/js/Popper.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<script src="/assets/js/owl.carousel.min.js"></script>
+	<script src="/assets/js/scrollax.js"></script>
+	<script src="/assets/js/jquery.parallax.js"></script>
+	<script src="/assets/js/extensions/revolution.extension.parallax.min.js"></script>
+	<script src="/assets/js/main.js"></script>
+	<script src="/assets/datepicker/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" src="/assets/js/moment.min.js"></script>
+	<script type="text/javascript" src="/assets/daterangepicker/daterangepicker.min.js"></script>
+	<script >
+		$(document).ready(function(){
+			$('#sdate').datepicker({
+				format:'yyyy-mm-dd',	
+		        autoclose: true,
+		        todayHighlight: true
+		    });
+			
+			$('#edate').datepicker({
+				format:'yyyy-mm-dd',	
+		        autoclose: true,
+		        todayHighlight: true
+		    });
+			
+		});
+		
+	</script>
+</body>
+</html>

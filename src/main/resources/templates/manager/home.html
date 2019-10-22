@@ -9,6 +9,7 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
   <meta content="Author" name="WebThemez">
+    <link href="/assets/air-datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css">
   <style>
   .text-met{
  	color: #6b6767;
@@ -56,13 +57,13 @@
 									</tr>
 								</tbody>
 							 </table>
-							 <form  th:action="@{/manager/report/__${leader.getEmp_Id()}__}">
+							 <form autocomplete="off" th:action="@{/manager/report/__${leader.getEmp_Id()}__}">
 								 <div class="row">
 								 	<div class='col-sm-12'>
 										 <div class="form-group">
 										      <div class='input-group date date-timepicker'>
-										          <input type='text' class="form-control" name="daterange" placeholder="Select Date " />
-										          <span class="input-group-addon">
+										          <input type='text' data-range="true" data-multiple-dates-separator=" - " data-language="en"  class="form-control datepicker-here" name="daterange" placeholder="Select Date " />
+										          <span class="input-group-addon" >
 										              <span class="glyphicon glyphicon-calendar"></span>
 										          </span>
 										       </div>
@@ -79,17 +80,15 @@
 	</div>
  </div>
   
-  <script  layout:fragment="foot">
-  $(function() {
-	  $('input[name="daterange"]').daterangepicker({
-	    opens: 'auto',
-	    locale: {
-            format: 'YYYY/MM/DD'
-        }
-	  }, function(start, end, label) {
-	    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-	  });
-   });
+  <div  layout:fragment="foot" th:remove="tag">
+  <script src="/assets/air-datepicker/js/datepicker.js"></script>
+  <script src="/assets/air-datepicker/js/i18n/datepicker.en.js"></script>
+  <script>
+  $('.datepicker-here').datepicker({
+	    autoClose: true,
+	    dateFormat: "yyyy/mm/dd"
+	});
   </script>
+  </div>
 </body>
 </html>

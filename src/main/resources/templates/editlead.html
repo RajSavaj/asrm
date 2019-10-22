@@ -162,7 +162,7 @@
 					</div>
 
 					<div class="asrm-btn-footer">
-						<button type="reset" class="btn btn-dark" style="margin-right: 10px;">CANCLE</button>
+						<button type="button" id="reset" class="btn btn-dark" style="margin-right: 10px;">CANCLE</button>
 						<button type="submit" class="btn btn-dark">UPDATE</button>
 					</div>
 				</form>
@@ -173,6 +173,11 @@
 $('#ls').val("[[${ulead.getLead_source()}]]");
 $('#lt').val("[[${ulead.getLead_status()}]]");
 $('#mt').val("[[${ulead.getMeeting_type()}]]");
+$(document).ready(function(){
+	$("#reset").click(function(){
+		window.location.href =window.location.origin+"/home";
+	});
+});
 </script>
 </body>
 </html>

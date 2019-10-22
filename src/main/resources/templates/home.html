@@ -9,12 +9,23 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
   <meta content="Author" name="WebThemez">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
   <style>
   .main-table-form2 {
     padding: 32px 0px;
     overflow: hidden;
     height: 90vh;
-	    overflow-y: scroll;
+	overflow-y: scroll;
+	}
+	.circle-icon{
+		background: #626262;
+	    border-radius: 50%;
+	    vertical-align: middle;
+	    padding: 7px;
+	    padding-top: 6px;
+	    padding-left: 6px;
+	    font-size: 18px;
+	    color: white;
 	}
 	body{
 		overflow-y: hidden;
@@ -29,12 +40,12 @@
 		 DASHBOARD
   </p>
 	
-  <div id="page" layout:fragment="content"  th:remove="tag">
+  <div id="page" layout:fragment="content"  th:remove="tag">  	
   	 <div class="main-table-form2">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="inner-table-sec">
+                            <div class="inner-table-sec" id="scrool-gradient">
                                 <table class="table">
                                     <b class="nb-fist-boc">
 										THIS MONTH CLIENT ACQUISTION
@@ -51,7 +62,7 @@
                                 </table>
                             </div>
                             
-                             <div class="inner-table-sec">
+                             <div class="inner-table-sec" id="scrool-gradient">
                                 <h2></h2>
                                 <table class="table">
                                     <b class="nb-fist-boc">
@@ -62,14 +73,14 @@
                                              <td th:text="${iterator.index+1}"></td>
                                              <td th:text="${moc.getFname() + ' ' + moc.getLname()}"></td>
                                              <td th:text="${moc.getExp_rev()}">25000/-</td>
-                                             <td><a  th:if="${moc.getLead_status() != 'DN'}" th:href="@{'lead/edit/' + ${moc.getId()}}"><i class="fa fa-edit"></i></a></td>
+                                             <td><a  th:if="${moc.getLead_status() != 'DN'}" th:href="@{'lead/edit/' + ${moc.getId()}}"><i class="glyphicon glyphicon-pencil circle-icon"></i></a></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="inner-table-sec">
+                            <div class="inner-table-sec" id="scrool-gradient">
                                 <h2></h2>
                                 <table class="table">
                                     <b class="nb-fist-boc">TODAY MEETING </b>
@@ -83,7 +94,7 @@
                                 </table>
                             </div>
                             
-                            <div class="inner-table-sec">
+                            <div class="inner-table-sec" id="scrool-gradient">
                                 <h2></h2>
                                  <table class="table">
                                     <b class="nb-fist-boc">FUTURE MEETING </b>
@@ -98,7 +109,7 @@
                                 </table>
                             </div>
                             
-                            <div class="inner-table-sec">
+                            <div class="inner-table-sec" id="scrool-gradient">
                                 <h2></h2>
                                 <table class="table">
                                     <b class="nb-fist-boc">
@@ -137,16 +148,17 @@
                 </div>
             </div>
   </div>
+
 <script layout:fragment="foot">
 $(document).ready(function(){
 	$('#sdate').datepicker({
-		format:'mm-dd-yyyy',	
+		format:'dd-mm-yyyy',
         autoclose: true,
         todayHighlight: true
     });
 	
 	$('#edate').datepicker({
-		format:'mm-dd-yyyy',	
+		format:'dd-mm-yyyy',
         autoclose: true,
         todayHighlight: true
     });
@@ -154,5 +166,7 @@ $(document).ready(function(){
 });
 
 </script>
+
+
 </body>
 </html>

@@ -2,18 +2,12 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <div layout:fragment="head"></div>
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700%7CRoboto:400,500,700,900%7CPlayfair+Display:400,700,700i,900,900i%7CWork+Sans:400,500,600,700"
-	rel="stylesheet">
-
-<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
 <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
 <link rel="stylesheet" href="/assets/datepicker/css/bootstrap-datepicker3.min.css" />
-
 <!--Theme custom css -->
 <link rel="stylesheet" href="/assets/css/style.css">
 
@@ -24,6 +18,9 @@
 .user-text{
 	display: inline;
     font-weight: 400;
+}
+#passmsg{
+display:none;
 }
 </style>
 </head>
@@ -54,9 +51,19 @@
 		</div>
 		<div class="right-lead-form">
 			<div class="right-nav-top">
+				<span class="nb-mobile-asrm" onclick="openNav()"><img src="/assets/images/menu-nnav.png"></span>
+				
+                 <div id="mySidenav" class="sidenav">
+                      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>    
+                      <div class="left-lead-icon">
+                    		<ul>
+            					<li><a href="#"><img src="assets/images/first-nb.png"></a></li>
+            					<li><a href="/lead"><img src="/assets/images/second-nb.png"></a>
+            				</ul>
+        			  </div>
+                  </div>
 				<div class="nav-first-tab">
-					<p layout:fragment="head_top">
-						
+					<p layout:fragment="head_top">						
 					</p>
 				</div>
 				<div class="nav-second-tab">
@@ -64,29 +71,110 @@
 				</div>
 
 				<div class="nav-third-tab">
-					<a href="#">Hi,<h6 class="user-text" th:text="${session.emp.getName()}">Avinash</h6>
-					<span id="main-profile" th:text="${#strings.substring(session.emp.getName(),0,1)}">A</span></a>
-					<div class="drop" id="menudiv">
-						<ol>
-						    <li class="divider" id="user-profile-link">
-						    	<a href="/changepassword" >Change Password</a>
-						    </li>
-		                    <li><a href="/logout">Log Out</a></li>
-						</ol>
+					<div class="dropdown">
+					<a href="#" >Hi,<h6 class="user-text" th:text="${session.emp.getName()}">Avinash</h6>
+					<span  onclick="myFunction()" class="dropbtn" id="main-profile" th:text="${#strings.substring(session.emp.getName(),0,1)}">A</span></a>
+					
+					  <div id="myDropdown" class="dropdown-content">
+					    <a href="#" data-toggle="modal" data-target="#myModal12">Change Password</a>
+					    <a href="/logout" class="color-cnf-g"><b>Log out</b></a>
+					  </div>
 					</div>
 				</div>
 			</div>
 			<div layout:fragment="content"></div>
 		</div>
-		<div class="container">
+
+		<!-- <div class="container">
 			<div class="row">
 				<div class="col-md-5"></div>
 			</div>
 			<div class="col-md-7"></div>
-		</div>
+		</div> -->
 	</section>
-	<script src="/assets/js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript">
+	<!-- ===============================================  password updated============================ -->
+
+  <div class="modal" id="myModal1">
+    <div class="modal-dialog">
+      <div class="modal-content asrm-popup">
+      
+        <!-- Modal Header -->
+        <div class="">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container-fluid login-container">
+			<div class="pwd-inner-asrm">
+			    <div class="row">
+			        <div class="col-md-12 ">
+			        	<div class="update-pwd-asrm login-form-2 nb-underline">
+			        		<img src="assets/images/successful-icon-10.jpg">
+			            <strong>Password Updated!</strong>
+			            <p>Your password has been changed successfully!</p>
+			            <p>Use your new password to <a href="/logout">Login</a></p>
+			        		
+			        	</div>
+			            
+			        </div>
+			    </div>
+    		</div>
+		</div>
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+	<!-- =============================================== change password ============================ -->
+	<div class="modal" id="myModal12">
+	    <div class="modal-dialog">
+	      <div class="modal-content asrm-popup">
+	      	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	       	<div class="modal-body">
+	          <div class="container-fluid login-container">
+				<div class="pwd-inner-asrm">
+				    <div class="row">
+				       <div class="col-md-6 login-form-1">
+				            <h3>Change your password</h3>
+				            <form action="/changepassword" method="POST" id="passchange">
+				                <div class="form-group">
+				                	<div class="invalid-feedback" id="passmsg"></div>
+				                	<label>New password</label>
+				                    <input type="password" name="pass" class="form-control" placeholder=" " value="" />
+				                </div>
+				                <div class="form-group">
+				                	<label>Confirm New Password</label>
+				                    <input type="password" name="cpass" class="form-control" placeholder="" value="" />
+				                </div>
+				                <div class="form-group">
+				                    <input type="submit" class="btnSubmit" value="Change my password" />
+				                </div>
+				            </form>
+				        </div>
+				        <div class="col-md-6 login-form-2 login-form-5">
+				            <strong>Password must contain</strong>
+				            <p>At least 1 upper case letter (A-Z)</p>
+				            <p>At least 1 number (0-9)</p>
+				            <p>At least 8 characters</p>    
+				        </div>
+				    </div>
+				 </div>
+			</div>
+		</div>
+	  </div>
+	</div>
+</div>
+
+
+
+
+
+
+
+<script src="/assets/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
 		$("#main-profile, #menudiv").hover(
 		    function(){
 		        $("#menudiv").show();
@@ -95,17 +183,84 @@
 		        $("#menudiv").hide();
 		    }
 		);
-	</script>
-	<script src="/assets/js/Popper.js"></script>
-	<script src="/assets/js/bootstrap.min.js"></script>
-	<script src="/assets/js/owl.carousel.min.js"></script>
-	<script src="/assets/js/scrollax.js"></script>
-	<script src="/assets/js/jquery.parallax.js"></script>
-	<script src="/assets/js/extensions/revolution.extension.parallax.min.js"></script>
-	<script src="/assets/js/main.js"></script>
-	<script src="/assets/datepicker/js/bootstrap-datepicker.min.js"></script>
-	<script type="text/javascript" src="/assets/js/moment.min.js"></script>
-	<script type="text/javascript" src="/assets/daterangepicker/daterangepicker.min.js"></script>
-	<script layout:fragment="foot"></script>
+</script>
+<script type="text/javascript" src="/assets/js/jquery-3.2.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/assets/js/moment.min.js"></script>
+<script type="text/javascript" src="/assets/daterangepicker/daterangepicker.min.js"></script>
+<script layout:fragment="foot">
+	$(document).ready(function(){
+		$('#sdate').datepicker({
+			format:'yyyy-mm-dd',	
+	        autoclose: true,
+	        todayHighlight: true
+	    });
+		
+		$('#edate').datepicker({
+			format:'yyyy-mm-dd',	
+	        autoclose: true,
+	        todayHighlight: true
+	    });
+	});
+</script>
+<script>
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+  var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('show')) {
+      myDropdown.classList.remove('show');
+    }
+  }
+}
+</script>
+<script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "80px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+    $("#passchange").submit(function(e) {
+	    e.preventDefault();
+	    var form = $(this);
+	    var pass = $("input[name='pass']",this).val();
+	    var cpass = $("input[name='cpass']",this).val();
+	    var url = form.attr('action');
+	   	if(pass==cpass)
+	   	{
+	   		$("#passmsg").hide();
+	   		if(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d#$@!%&*?]{8,}$/.test(cpass)){
+	   			$.ajax({
+	   	           type: "POST",
+	   	           url: url,
+	   	           data: form.serialize(), 
+	   	           success: function(data)
+	   	           {
+		   	        	$('#myModal12').modal('hide');
+		   	        	$('#myModal1').modal('show');
+	   	           }
+	   	        });
+	   		}
+	   		else
+	   		{
+	   			$("#passmsg").text("please follow rule to set password");
+		   		$("#passmsg").show();
+	   		}
+	   	}
+	   	else
+	   	{
+	   		$("#passmsg").text("Password and confirm password not same");
+	   		$("#passmsg").show();
+	   	}
+	});
+    
+</script>
 </body>
 </html>
