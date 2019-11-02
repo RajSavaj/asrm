@@ -63,7 +63,7 @@
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="pwd">MEETING DATE</label> 
-									<input type="text" class="form-control" name="update_time" id="mdate" th:value="${#dates.format(new java.util.Date(), 'YYYY-MM-dd')}" />
+									<input type="text" class="form-control" name="update_time" id="mdate" th:value="${#dates.format(new java.util.Date(), 'dd-MM-yyyy')}" />
 								</div>
 							</div>
 						</div>
@@ -229,7 +229,7 @@ $(document).ready(function(){
 		start_date.setDate(start_date.getDate() - 2);
 		var end_date=new Date();
 		$('#mdate').datepicker({
-			format:'yyyy-mm-dd',	
+			format:'dd-mm-yyyy',
 	        autoclose: true,
 	        todayHighlight: true,
 	        startDate:start_date,
@@ -242,7 +242,7 @@ $(document).ready(function(){
 	}
 	
 	$('#fdate').datepicker({
-		format:'yyyy-mm-dd',	
+		format:'dd-mm-yyyy',
         autoclose: true,
         todayHighlight: true
     });

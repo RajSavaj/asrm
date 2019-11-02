@@ -149,24 +149,23 @@ public class Lead {
 	}
 	public void setUpdate_time(String update_time) {
 		String str = update_time+" 12:00";
-		DateTimeFormatter udate_format =  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		DateTimeFormatter udate_format =  DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 		this.update_time=LocalDateTime.parse(str,udate_format);
 	}
 	public String getFormatDateTime()
 	{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
         String formatDateTime = this.update_time.format(formatter);
         return formatDateTime;
 	}
 	
 	public String getDate()
 	{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formatDateTime = this.update_time.format(formatter);
         return formatDateTime;
 	}
-	
-	
+
 	public String getLeadSource()
 	{
 		if(Lead_source.equals("TC")){

@@ -29,7 +29,7 @@ public class AdminController {
 			return "redirect:/login";
 		}
 		model.addAttribute("emp", new Emp());
-		return "admin/home";
+		return "addlead";
 	}
 	
 	@PostMapping("/admin/saveemp")

@@ -63,11 +63,18 @@ public class LeadStatic {
 
 	public static String ConvertDate(String in_date)
 	{
-		SimpleDateFormat inSDF = new SimpleDateFormat("dd/mm/yyyy");
+		SimpleDateFormat inSDF = new SimpleDateFormat("dd-mm-yyyy");
 		SimpleDateFormat outSDF = new SimpleDateFormat("yyyy-mm-dd");
 		Date date = null;
 		try {
-			date = inSDF.parse(in_date);
+			if(!in_date.equals(""))
+			{
+				date = inSDF.parse(in_date);
+			}
+			else
+			{
+				return "";
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

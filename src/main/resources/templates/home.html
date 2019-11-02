@@ -142,7 +142,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
+                            <div id = "mypie" style = "width: 550px; height: 400px; margin: 0 auto">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -162,11 +165,24 @@ $(document).ready(function(){
         autoclose: true,
         todayHighlight: true
     });
-	
 });
+google.charts.load('current', {packages: ['corechart']});
+function drawChart() {
+    // Define the chart to be drawn.
+    var data = google.visualization.arrayToDataTable([
+        ['Lead', 'Number'],
+        ['Done',  4],
+        ['Prospect',  15],
+        ['Not interested',  14]
+    ]);
 
+    var options = {title: 'Lead (in month)',vAxis: {gridlines: { count: 3}}};
+
+    // Instantiate and draw the chart.
+    var chart = new google.visualization.ColumnChart(document.getElementById('mypie'));
+    chart.draw(data, options);
+}
+google.charts.setOnLoadCallback(drawChart);
 </script>
-
-
 </body>
 </html>

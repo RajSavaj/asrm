@@ -133,7 +133,7 @@
 							<div class="col md-6">
 								<div class="form-group">
 									<label for="pwd">FOLLOW UP DATE</label> 
-									<input type="date" class="form-control" name="follow_date" placeholder="Enter Date"  th:value="${ulead.getFollow_date()}">
+									<input type="text" id="fdate" class="form-control" name="follow_date" placeholder="Enter Date"  th:value="${ulead.getDate()}">
 								</div>
 							</div>
 						</div>
@@ -176,6 +176,11 @@ $('#mt').val("[[${ulead.getMeeting_type()}]]");
 $(document).ready(function(){
 	$("#reset").click(function(){
 		window.location.href =window.location.origin+"/home";
+	});
+	$('#fdate').datepicker({
+		format:'dd-mm-yyyy',
+		autoclose: true,
+		todayHighlight: true
 	});
 });
 </script>

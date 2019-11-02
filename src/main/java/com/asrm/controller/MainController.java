@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.asrm.services.LeadStatic;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -112,7 +113,7 @@ public class MainController {
 		HttpSession session = httpSessionFactory.getObject();
 		Emp e = (Emp) session.getAttribute("emp");
 		lead.setEmpId(e.getEmp_Id());
-		System.out.println(lead.getUpdate_time());
+		lead.setFollow_date(LeadStatic.ConvertDate(lead.getFollow_date()));
 		service.saveLead(lead);
 		rm.addFlashAttribute("Success", "Your lead successfully saved");
 		return "redirect:/lead";
