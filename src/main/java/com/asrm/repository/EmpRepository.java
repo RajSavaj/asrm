@@ -1,14 +1,12 @@
 package com.asrm.repository;
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 
 import com.asrm.model.Emp;
-import com.asrm.model.Lead;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+@SuppressWarnings("ALL")
 public interface EmpRepository  extends JpaRepository<Emp, Long>  {
 	 @Query("SELECT t FROM Emp t WHERE t.Emp_Id = ?1 AND t.password = ?2")
 	 Emp findByEmpidAndPass(String fooIn, String bar);
@@ -23,11 +21,17 @@ public interface EmpRepository  extends JpaRepository<Emp, Long>  {
 	 
 	 @Query(value="SELECT * FROM `employee` WHERE `manager_id`=?1",nativeQuery = true)
 	 List<Emp> ListRm(String lid);
-	 
-	 
-	 @Query(value="select COUNT(*) FROM lead where emp_id in (select emp_id FROM employee WHERE manager_id=?1) AND DATE_FORMAT(follow_date, '%Y-%m-%d')  = CURDATE()",nativeQuery = true)
+
+    @Query(value = "SELECT COUNT(*) FROM lead where emp_id in (select emp_id FROM employee WHERE manager_id=?1) AND DATE_FORMAT(follow_date, '%Y-%m-%d')  = CURDATE()", nativeQuery = true)
 	 int leadcount(String lid);
-	 
-	 @Query(value="select COUNT(*) FROM lead where emp_id in (select emp_id FROM employee WHERE manager_id=?1) AND lead_status='DN' AND YEAR(update_time) = YEAR(CURRENT_DATE()) AND  MONTH(update_time) = MONTH(CURRENT_DATE()) ",nativeQuery = true)
+
+    @Query(value = "SELECT COUNT(*) FROM lead where emp_id in (select emp_id FROM employee WHERE manager_id=?1) AND lead_status='DN' AND YEAR(update_time) = YEAR(CURRENT_DATE()) AND  MONTH(update_time) = MONTH(CURRENT_DATE()) ", nativeQuery = true)
 	 int MonthLeadDone(String lid);
+
+    @Query(value = "SELECT * FROM employee ORDER BY designation='MR' DESC,designation='LD' DESC,designation='RM' DESC", nativeQuery = true)
+    List<Emp> allEmp();
+
+    @Query(value = "SELECT COUNT(*)  FROM employee  WHERE mno=?1 ", nativeQuery = true)
+    int checkEmp(String id);
+
 }	

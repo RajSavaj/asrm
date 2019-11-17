@@ -1,10 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en"
+      layout:decorator="/layouts/default"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<div layout:fragment="head" th:remove="tag">
+    <title>ASRM</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <meta content="Author" name="WebThemez">
+    <style>
+        .error-text {
+            color: red;
+            font-size: 12px;
+            margin-left: 4px;
+        }
 
+        input[name="fname"], input[name="lname"] {
+            text-transform: capitalize;
+        }
+
+        #fname_msg, #lname_msg, #email_msg, #mno_msg {
+            display: none;
+        }
+
+        .invalid-feedback {
+            display: block !important;
+        }
+    </style>
+
+</div>
+<body id="body">
+<p layout:fragment="head_top">
+    ADMIN DASHBOARD
+</p>
+
+<div id="page" layout:fragment="content" th:remove="tag">
+    <div class="container-fluid">
+        <div class="main-form-asrm">
+            <form action="/admin/saveemp" id="emp" method="POST" th:object="${emp}">
+                <div class="form-asrm-title">
+                    <h2>Add Employee</h2>
+                </div>
+                <div class="alert alert-success" th:if="${Success != null}" th:text="${Success}">
+
+                </div>
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                </div>
+                <div class="form-asrm-start">
+                    <div class="row">
+                        <div class="col md-6">
+                            <div class="form-group">
+                                <label>NAME </label>
+                                <input class="form-control" id="fname" name="name" type="text">
+                                <div id="fname_msg">Please enter first name.</div>
+                            </div>
+                        </div>
+                        <div class="col md-6">
+                            <div class="form-group">
+                                <label>LAST NAME </label>
+                                <input class="form-control" id="lname" name="lname" type="text">
+                                <div id="lname_msg">Please enter last name.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hr-border-nb">
+                    <hr>
+                </div>
+                <div class="form-asrm-start">
+                    <div class="row">
+
+                        <div class="col md-6">
+                            <div class="form-group">
+                                <label>EMAIl</label>
+                                <input class="form-control" id="email" name="email" placeholder="Enter Email"
+                                       type="email">
+                                <div id="email_msg">Please enter email address.</div>
+                            </div>
+                        </div>
+
+                        <div class="col md-6">
+                            <div class="form-group">
+                                <label>MOBILE NUMBER</label>
+                                <input class="form-control" id="mno" name="mno" placeholder="Enter Mobile Number"
+                                       type="number">
+                                <div id="mno_msg">Please enter mobile number.</div>
+                            </div>
+                        </div>
+
+                        <div class="col md-6">
+                            <div class="form-group">
+                                <label>DESIGNATION</label>
+                                <select class="form-control" id="deg" name="designation">
+                                    <option value="RM">Relationship Manager</option>
+                                    <option value="LD">Team Leader</option>
+                                    <option value="MR">Manager</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="hr-border-nb">
+                    <hr>
+                </div>
+                <div class="form-asrm-start">
+                    <div class="row">
+                        <div class="col md-6">
+                            <div class="form-group">
+                                <label>EMPLOYEE CODE</label>
+                                <input class="form-control" id="emp_id" name="Emp_Id" placeholder="Enter Employee Code"
+                                       readonly="readonly" type="text">
+                            </div>
+                        </div>
+                        <div class="col md-6">
+                            <div class="form-group">
+                                <label>HIGHER DESIGNATION PERSON</label>
+                                <select class="form-control" id="mgr_id" name="manager_id">
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="asrm-btn-footer">
+                    <input class="form-control" name="password" type="hidden" value="admin717">
+                    <button class="btn btn-dark" style="margin-right: 10px;" type="reset">CANCLE</button>
+                    <button class="btn btn-dark" type="submit">SAVE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script layout:fragment="foot">
+    $('#deg').trigger('change');
+    $(document).ready(function () {
+
+        $("#deg").trigger('change');
+        $('#emp').submit(function () {
+            var res = true;
+            $("#fname_msg,#lname_msg,#email_msg,#mno_msg").removeClass('invalid-feedback');
+            $("#fname,#lname,#mno,#email").removeClass('is-invalid');
+
+            var fname = $("#fname");
+            var lname = $("#lname");
+            var mno = $("#mno");
+            var email = $("#email");
+
+            if (email.val().trim().length < 1) {
+                res = false;
+                $(email).addClass('is-invalid');
+                $("#email_msg").addClass('invalid-feedback');
+            }
+
+            if (mno.val().trim().length != 10) {
+                res = false;
+                $(mno).addClass('is-invalid');
+                $("#mno_msg").text("Please enter valid mobile number");
+                $("#mno_msg").addClass('invalid-feedback');
+            }
+
+            if (lname.val().trim().length < 1) {
+                res = false;
+                $(lname).addClass('is-invalid');
+                $("#lname_msg").addClass('invalid-feedback');
+            }
+
+            if (fname.val().trim().length < 1) {
+                res = false;
+                $(fname).addClass('is-invalid');
+                $("#fname_msg").addClass('invalid-feedback');
+            }
+            $('#scrool-gradient').animate({scrollTop: $(fname).offset().top}, 1000);
+            return res;
+        });
+
+        $(document).on('change', '#mno', function () {
+            var cno = $(this).val();
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "/api/checkEmp",
+                data: {cno: cno},
+                success: function (response) {
+                    if (response == 1) {
+                        $(mno).addClass('is-invalid');
+                        $(mno).val("");
+                        $("#mno_msg").text("Mobile number is already used");
+                        $("#mno_msg").addClass('invalid-feedback');
+                    } else {
+                        $(mno).removeClass('is-invalid');
+                        $("#mno_msg").removeClass('invalid-feedback');
+                    }
+                }
+            });
+        });
+    });
+    $(document).on('change', '#deg', function () {
+        var desg = this.value;
+        var status = true;
+        if (desg != "" && status == true) {
+            status = false;
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "/api/getEmpCode",
+                data: {role: desg},
+                success: function (response) {
+                    var a = JSON.stringify(response);
+                    var t = JSON.parse(a);
+                    $("#emp_id").val(t.newempid);
+                    $('#mgr_id').empty();
+                    for (var i = 0; i < t.emps.length; i++) {
+                        $('#mgr_id').append($("<option></option>").attr("value", t.emps[i].emp_Id).text(t.emps[i].name));
+                    }
+                    status = true;
+                }
+            });
+        }
+
+    });
+</script>
 </body>
 </html>

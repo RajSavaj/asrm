@@ -1,6 +1,6 @@
 package com.asrm.model;
+
 import javax.persistence.*;
-import java.util.Collection;
 @Entity
 @Table(name = "Employee")
 public class Emp {
@@ -14,8 +14,8 @@ public class Emp {
 	
 	private String Emp_Id;
 
-    private String password;;
-    
+    private String password;
+
     private String Email;
     
     private String Mno;
@@ -83,6 +83,18 @@ public class Emp {
 	public String getDesignation() {
 		return Designation;
 	}
+
+    public String getDesignationFullName() {
+        if (Designation.equals("MR")) {
+            return "Manager";
+        } else if (Designation.equals("LD")) {
+            return "Team Leader";
+        } else if (Designation.equals("RM")) {
+            return "Relationship Manager";
+        } else {
+            return "Admin";
+        }
+    }
 
 	public void setDesignation(String designation) {
 		Designation = designation;

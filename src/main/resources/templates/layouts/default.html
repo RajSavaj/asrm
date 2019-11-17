@@ -1,8 +1,10 @@
-<html>
+<html
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <div layout:fragment="head"></div>
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/datepicker/css/bootstrap-datepicker3.min.css" />
@@ -12,6 +14,7 @@
 <!--Theme Responsive css-->
 <link rel="stylesheet" href="/assets/css/responsive.css" />
 <link rel="stylesheet" type="text/css" href="/assets/daterangepicker/daterangepicker.css" />
+	<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
 <style>
 .user-text{
 	display: inline;
@@ -21,6 +24,7 @@
 display:none;
 }
 </style>
+	<base href="http://localhost:8080/">
 </head>
 <body id="body">
 	<section id="new-lead-form">
@@ -29,12 +33,13 @@ display:none;
 				<ul th:if="${session.emp.getDesignation().equals('RM')}">
 					<li><a href="/home"><img src="/assets/images/first-nb.png"></a>
 					</li>
-
 					<li><a href="/lead"><img src="/assets/images/second-nb.png"></a>
 					</li>
 				</ul>
 				<ul th:if="${session.emp.getDesignation().equals('ADM')}">
 					<li><a href="/admin/home"><img src="/assets/images/first-nb.png"></a>
+					</li>
+					<li><a href="/admin/showuser"><img src="/assets/images/users.png"></a>
 					</li>
 				</ul>
 				<ul th:if="${session.emp.getDesignation().equals('LD')}">
@@ -55,7 +60,7 @@ display:none;
                       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>    
                       <div class="left-lead-icon">
                     		<ul>
-            					<li><a href="#"><img src="assets/images/first-nb.png"></a></li>
+								<li><a href="#"><img src="/assets/images/first-nb.png"></a></li>
             					<li><a href="/lead"><img src="/assets/images/second-nb.png"></a>
             				</ul>
         			  </div>
@@ -70,7 +75,7 @@ display:none;
 
 				<div class="nav-third-tab">
 					<div class="dropdown">
-					<a href="#" >Hi,<h6 class="user-text" th:text="${session.emp.getName()}">Avinash</h6>
+						<a>Hi,<h6 class="user-text" th:text="${session.emp.getName()}">Avinash</h6>
 					<span  onclick="myFunction()" class="dropbtn" id="main-profile" th:text="${#strings.substring(session.emp.getName(),0,1)}">A</span></a>
 					
 					  <div id="myDropdown" class="dropdown-content">
@@ -83,12 +88,7 @@ display:none;
 			<div layout:fragment="content"></div>
 		</div>
 
-		<!-- <div class="container">
-			<div class="row">
-				<div class="col-md-5"></div>
-			</div>
-			<div class="col-md-7"></div>
-		</div> -->
+
 	</section>
 	<!-- ===============================================  password updated============================ -->
 
@@ -108,7 +108,7 @@ display:none;
 			    <div class="row">
 			        <div class="col-md-12 ">
 			        	<div class="update-pwd-asrm login-form-2 nb-underline">
-			        		<img src="assets/images/successful-icon-10.jpg">
+							<img src="/assets/images/successful-icon-10.jpg">
 			            <strong>Password Updated!</strong>
 			            <p>Your password has been changed successfully!</p>
 			            <p>Use your new password to <a href="/logout">Login</a></p>
@@ -164,13 +164,6 @@ display:none;
 	  </div>
 	</div>
 </div>
-
-
-
-
-
-
-
 <script src="/assets/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 		$("#main-profile, #menudiv").hover(
@@ -187,7 +180,7 @@ display:none;
 <script src="/assets/datepicker/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="/assets/js/moment.min.js"></script>
 <script type="text/javascript" src="/assets/daterangepicker/daterangepicker.min.js"></script>
-<script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+	<script src="/gstatic/loader.js" type="text/javascript"></script>
 <script layout:fragment="foot">
 	$(document).ready(function(){
 		$('#sdate').datepicker({
@@ -221,7 +214,6 @@ window.onclick = function(e) {
     function openNav() {
       document.getElementById("mySidenav").style.width = "80px";
     }
-
     function closeNav() {
       document.getElementById("mySidenav").style.width = "0";
     }
@@ -231,8 +223,7 @@ window.onclick = function(e) {
 	    var pass = $("input[name='pass']",this).val();
 	    var cpass = $("input[name='cpass']",this).val();
 	    var url = form.attr('action');
-	   	if(pass==cpass)
-	   	{
+		if (pass == cpass) {
 	   		$("#passmsg").hide();
 	   		if(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d#$@!%&*?]{8,}$/.test(cpass)){
 	   			$.ajax({
@@ -258,7 +249,6 @@ window.onclick = function(e) {
 	   		$("#passmsg").show();
 	   	}
 	});
-    
 </script>
 </body>
 </html>

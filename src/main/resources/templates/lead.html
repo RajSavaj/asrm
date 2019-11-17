@@ -62,7 +62,7 @@
 							</div>
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
-									<label for="pwd">MEETING DATE</label> 
+                                    <label>MEETING DATE</label>
 									<input type="text" class="form-control" name="update_time" id="mdate" th:value="${#dates.format(new java.util.Date(), 'dd-MM-yyyy')}" />
 								</div>
 							</div>
@@ -82,14 +82,14 @@
 							</div>
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
-									<label for="pwd">LAST NAME </label>
+                                    <label>LAST NAME </label>
 									 <input type="text" id="lname" class="form-control" name="lname" placeholder="Enter Name">
 									 <div id="lname_msg">Please enter name.</div>
 								</div>
 							</div>
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
-									<label for="pwd">CONTACT</label> 
+                                    <label>CONTACT</label>
 									<input type="text" id="mno" class="form-control" name="cno" placeholder="Enter Contact">
 									<div id="mno_msg">Please provide valid mobile number.</div>
 								</div>
@@ -126,7 +126,7 @@
 							</div>
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
-									<label for="pwd">MEETING TYPE</label> 
+                                    <label>MEETING TYPE</label>
 									<select class="form-control" name="meeting_type" id="mtype">
 										<option value="NM">New meeting</option>
 										<option value="FP">Follow up</option>
@@ -134,8 +134,15 @@
 										<option value="SC">Service</option>
 										<option value="FM">Fresh Meeting</option>
 									</select>
-								</div>
-							</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 part_name" style="display: none">
+                                <div class="form-group">
+                                    <label>PARTNER NAME</label>
+                                    <input class="form-control" name="joint_leader_name"
+                                           placeholder="Enter Partner Name" type="text">
+                                </div>
+                            </div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 col-sm-12 exp-m">
@@ -146,14 +153,14 @@
 							</div>
 							<div class="col-md-6 col-sm-12 exp-r">
 								<div class="form-group">
-									<label for="pwd">EXPECTED REVENUE</label> 
+                                    <label>EXPECTED REVENUE</label>
 									<input type="text" id="exrev" class="form-control" name="exp_rev" placeholder="Enter Revenue" value="0">
 								</div>
 							</div>
 							
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
-									<label for="pwd">FRESH / FOLLOW UP DATE</label> 
+                                    <label>FRESH / FOLLOW UP DATE</label>
 									<input type="text" class="form-control" name="follow_date" id="fdate" placeholder="Enter Date">
 								</div>
 							</div>
@@ -167,14 +174,6 @@
 					<div class="form-asrm-start">
 
 						<div class="row">
-							
-							<div class="col-md-6 col-sm-12 part_name" style="display: none">
-								<div class="form-group">
-									<label for="pwd">PARTNER NAME</label> 
-									<input type="text"  class="form-control" name="joint_leader_name" placeholder="Enter Partner Name">
-								</div>
-							</div>
-							
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label for="email">ADDRESS</label> 
@@ -184,7 +183,7 @@
 							</div>
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
-									<label for="pwd">Remark</label> 
+                                    <label>Remark</label>
 									<input type="text" class="form-control" name="description" placeholder="Enter Description">
 								</div>
 							</div>
@@ -219,13 +218,13 @@ $(document).on('change', '#mtype', function () {
 		$('#marg,#exrev').prop('readonly',true);
 	}
 });
+
 $(document).ready(function(){
 	$("#reset").click(function(){
 		window.location.href =window.location.origin+"/home";
 	});
 	var start_date=new Date();
-	if(start_date.getDay()==1)
-	{
+    if (start_date.getDay() == 1) {
 		start_date.setDate(start_date.getDate() - 2);
 		var end_date=new Date();
 		$('#mdate').datepicker({
@@ -235,9 +234,7 @@ $(document).ready(function(){
 	        startDate:start_date,
 	        endDate:end_date
 	    });
-	}
-	else
-	{
+	} else {
 		$('#mdate').prop('disabled', true);
 	}
 	
@@ -246,8 +243,7 @@ $(document).ready(function(){
         autoclose: true,
         todayHighlight: true
     });
-	
-	
+
 	$('#lead').submit(function() {
 	    var res = true;
 	    $("#add_msg,#lname_msg,#mno_msg,#fname_msg").removeClass('invalid-feedback');
@@ -267,6 +263,7 @@ $(document).ready(function(){
 		if(mno.val().trim().length!=10){
 			res=false;
 			$(mno).addClass('is-invalid');
+            $("#mno_msg").text("Please enter valid mobile number");
 			$("#mno_msg").addClass('invalid-feedback');
 		}
 		
@@ -284,7 +281,27 @@ $(document).ready(function(){
 		$('#scrool-gradient').animate({scrollTop: $(fname).offset().top}, 1000);
 	    return res; 
 	});
-	
+
+    $(document).on('change', '#mno', function () {
+        var cno = $(this).val();
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            url: "/api/checkUser",
+            data: {cno: cno},
+            success: function (response) {
+                if (response == 1) {
+                    $(mno).addClass('is-invalid');
+                    $(mno).val("");
+                    $("#mno_msg").text("Mobile number is already used");
+                    $("#mno_msg").addClass('invalid-feedback');
+                } else {
+                    $(mno).removeClass('is-invalid');
+                    $("#mno_msg").removeClass('invalid-feedback');
+                }
+            }
+        });
+    });
 });
 
 </script>

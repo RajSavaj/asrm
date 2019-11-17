@@ -75,7 +75,7 @@ img {
 }
 ::placeholder {
   color: #000000 !important;
-  font-weight:500 !important;
+    font-weight: 300 !important;
 }
 label {
     font-weight: 600;
@@ -299,6 +299,7 @@ button.nb-login-arh {
 .left-lead-form {
     background: #dee82d;
     width: 5%;
+    min-height: 100vh;
     height: auto;
     float: left;
 }
@@ -889,12 +890,15 @@ li:nth-child(3) > .list-type-dashboard b {
     padding-bottom: 4px;
 }
 .inner-nb-btm-dsh li:nth-child(1) {
+    padding-bottom: 8px;
     border-bottom: 3px solid #1e4e3b;
 }
 .inner-nb-btm-dsh li:nth-child(2) {
+    padding-bottom: 8px;
     border-bottom: 3px solid #9ab33c;
 }
 .inner-nb-btm-dsh li:nth-child(3) {
+    padding-bottom: 8px;
     border-bottom: 3px solid #d5df25;
 }
 .dashboard-statistics-in {
@@ -937,7 +941,8 @@ li:nth-child(3) > .list-type-dashboard b {
     padding: 7px;
     border-radius: 5px;
 }
-.di-f-dashboad li a {
+
+.inner-nb-btm-dsh li a {
     color: #1e4e3b;
     background: #ffffff;
     font-size: 16px;
@@ -953,9 +958,31 @@ li:nth-child(3) > .list-type-dashboard b {
     font-size: 23px;
     float: left;
 }
-.di-f-dashboad ul {
+
+.inner-nb-btm-dsh ul {
     display: flex;
-    float: right;
 }
 
-/*==========================close dashbpoard index css ===========================*/
+.nb-dashboard-search input.form-control.my-0.py-1.red-border:focus {
+    outline: none !important;
+    box-shadow: none;
+}
+
+/* delete popup */
+
+.asrm-delete-pp {
+    text-align: center;
+}
+
+.asrm-delete-img img {
+    clip: 50px;
+    width: auto;
+    margin-top: -15px;
+    height: 214px;
+}
+
+.asrm-delete-content p {
+    color: #000;
+}
+
+

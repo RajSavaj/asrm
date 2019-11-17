@@ -16,6 +16,10 @@
     font-size: 16px;
     font-weight: 400;
   }
+
+  .datepicker-here {
+      border-color: #1a83f4 !important;
+  }
   </style>
 </div>
 <body id="body">
@@ -59,13 +63,10 @@
 							 </table>
 							 <form autocomplete="off" th:action="@{/manager/report/__${leader.getEmp_Id()}__}">
 								 <div class="row">
-								 	<div class='col-sm-12'>
+                                     <div class='col-sm-10' style="margin: auto">
 										 <div class="form-group">
 										      <div class='input-group date date-timepicker'>
 										          <input type='text' data-range="true" data-multiple-dates-separator=" - " data-language="en"  class="form-control datepicker-here" name="daterange" placeholder="Select Date " />
-										          <span class="input-group-addon" >
-										              <span class="glyphicon glyphicon-calendar"></span>
-										          </span>
 										       </div>
 										  </div>
 									 </div>

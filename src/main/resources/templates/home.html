@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorator="layouts/default">
+      layout:decorator="layouts/default"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <div layout:fragment="head" th:remove="tag">
-  <title>ASRM</title>	
+    <title>ASRM</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -39,8 +39,8 @@
   <p layout:fragment="head_top">
 		 DASHBOARD
   </p>
-	
-  <div id="page" layout:fragment="content"  th:remove="tag">  	
+
+  <div id="page" layout:fragment="content" th:remove="tag">
   	 <div class="main-table-form2">
                 <div class="container-fluid">
                     <div class="row">
@@ -61,7 +61,7 @@
                                         </tbody>
                                 </table>
                             </div>
-                            
+
                              <div class="inner-table-sec" id="scrool-gradient">
                                 <h2></h2>
                                 <table class="table">
@@ -93,7 +93,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <div class="inner-table-sec" id="scrool-gradient">
                                 <h2></h2>
                                  <table class="table">
@@ -108,7 +108,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <div class="inner-table-sec" id="scrool-gradient">
                                 <h2></h2>
                                 <table class="table">
@@ -118,17 +118,17 @@
                                     <tbody>
                                       	<tr>
                                            <td>
-                                           		<form action="LeadExport" method="POST">
+                                               <form action="LeadExport" autocomplete="off" method="POST">
                                            		<div class="row">
                                            			<div class="col-md-6">
                                            				<div class="form-group">
-															<label for="email">Start From </label> 
+                                                            <label>Start From </label>
 															<input type="text" class="form-control" id="sdate" name="sdate" placeholder="Select start date">
 														</div>
                                            			</div>
                                            			<div class="col-md-6">
 														<div class="form-group">
-															<label for="pwd">End Form</label>
+                                                            <label>End Form</label>
 															<input type="text" class="form-control" id="edate" name="edate" placeholder="Select end date">
 														</div>
 													</div>
@@ -159,8 +159,8 @@ $(document).ready(function(){
         autoclose: true,
         todayHighlight: true
     });
-	
-	$('#edate').datepicker({
+
+    $('#edate').datepicker({
 		format:'dd-mm-yyyy',
         autoclose: true,
         todayHighlight: true
@@ -168,17 +168,13 @@ $(document).ready(function(){
 });
 google.charts.load('current', {packages: ['corechart']});
 function drawChart() {
-    // Define the chart to be drawn.
     var data = google.visualization.arrayToDataTable([
-        ['Lead', 'Number'],
-        ['Done',  4],
-        ['Prospect',  15],
-        ['Not interested',  14]
+        ['Lead', 'Count'],
+        ['Done', [[${countDoneLead}]]],
+        ['Prospect', [[${countPRLead}]]],
+        ['Not interested', [[${countNILead}]]]
     ]);
-
-    var options = {title: 'Lead (in month)',vAxis: {gridlines: { count: 3}}};
-
-    // Instantiate and draw the chart.
+    var options = {title: 'Lead (in month)', vAxis: {minValue: 5}};
     var chart = new google.visualization.ColumnChart(document.getElementById('mypie'));
     chart.draw(data, options);
 }

@@ -1,13 +1,12 @@
 package com.asrm.repository;
 
-import java.util.List;
-
+import com.asrm.model.Lead;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.asrm.model.Emp;
-import com.asrm.model.Lead;
+import java.util.List;
 
+@SuppressWarnings("ALL")
 public interface LeadRepository extends JpaRepository<Lead, Long> {
 	 @Query(value ="SELECT *  FROM lead  WHERE YEAR(update_time) = YEAR(CURRENT_DATE()) AND  MONTH(update_time) = MONTH(CURRENT_DATE()) AND lead_status='DN' AND emp_id= ?1 ", nativeQuery = true)
 	List<Lead> monthclose(String empid);
@@ -35,5 +34,13 @@ public interface LeadRepository extends JpaRepository<Lead, Long> {
 
 	 @Query(value="select COUNT(*) FROM lead where emp_id=?1 AND lead_status='DN' AND YEAR(update_time) = YEAR(CURRENT_DATE()) AND  MONTH(update_time) = MONTH(CURRENT_DATE()) ",nativeQuery = true)
 	 int countMonthRmLead(String rid);
-	 
+
+    @Query(value = "select COUNT(*) FROM lead where emp_id=?1 AND lead_status='PR' AND YEAR(update_time) = YEAR(CURRENT_DATE()) AND  MONTH(update_time) = MONTH(CURRENT_DATE()) ", nativeQuery = true)
+    int countPRLead(String rid);
+
+    @Query(value = "select COUNT(*) FROM lead where emp_id=?1 AND lead_status='NI' AND YEAR(update_time) = YEAR(CURRENT_DATE()) AND  MONTH(update_time) = MONTH(CURRENT_DATE()) ", nativeQuery = true)
+    int countNILead(String rid);
+
+    @Query(value = "SELECT COUNT(*)  FROM lead  WHERE cno=?1 ", nativeQuery = true)
+    int checkUser(String id);
 }

@@ -1,41 +1,27 @@
 
 package com.asrm.controller;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
+import com.asrm.model.Emp;
+import com.asrm.model.Lead;
 import com.asrm.services.LeadStatic;
+import com.asrm.services.MainService;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.asrm.model.Emp;
-import com.asrm.model.Lead;
-import com.asrm.services.MainService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.io.OutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -46,7 +32,7 @@ public class MainController {
 	@Autowired
 	ObjectFactory<HttpSession> httpSessionFactory;
 
-	@RequestMapping("home")
+    @RequestMapping({"home", "/"})
 	public String Home(Model model,HttpServletResponse response) {
 		if (checksession()) {
 			return "redirect:/login";
@@ -57,6 +43,9 @@ public class MainController {
 		model.addAttribute("todaymet", service.leadRepository.todaylead(e.getEmp_Id()));
 		model.addAttribute("expectedrev", service.leadRepository.expect_Rev(e.getEmp_Id()));
 		model.addAttribute("feture",service.leadRepository.featureData(e.getEmp_Id()));
+        model.addAttribute("countDoneLead", service.leadRepository.countMonthRmLead(e.getEmp_Id()));
+        model.addAttribute("countPRLead", service.leadRepository.countPRLead(e.getEmp_Id()));
+        model.addAttribute("countNILead", service.leadRepository.countNILead(e.getEmp_Id()));
 		return "home";
 	}
 	
@@ -193,11 +182,8 @@ public class MainController {
 	
 	boolean checksession() {
 		HttpSession session = httpSessionFactory.getObject();
-		if (session.getAttribute("emp") == null) {
-			return true;
-		}
-		return false;
-	}
+        return session.getAttribute("emp") == null;
+    }
 	
 	@GetMapping("logout")
     public String logout(HttpServletResponse response) {
@@ -210,7 +196,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("Test")
-	public String test() {
+    public String test(Model model) {
 		return "test";
 	}
 	

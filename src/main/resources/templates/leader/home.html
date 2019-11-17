@@ -16,7 +16,14 @@
     font-size: 16px;
     font-weight: 400;
   }
+
+  .datepicker-here {
+	  border-color: #1a83f4 !important;
+  }
   </style>
+	<script>
+		var rmdata = [];
+	</script>
 </div>
 <body id="body">
 	 <p layout:fragment="head_top">
@@ -30,6 +37,12 @@
 						<div class="col-lg-12 col-md-5 col-xs-12">
 							<div class="inner-table-sec-admin">
 								<table class="table">
+									<script type="text/javascript">
+										var temp = []; //[[${leadServices.countMonthRmLead(rm.getEmp_Id())}]]   [[${rm.getName()}]]
+										temp.push('[[${rm.getName()}]]');
+										temp.push([[${leadServices.countMonthRmLead(rm.getEmp_Id())}]]);
+										rmdata.push(temp);
+									</script>
 									<b class="nb-fist-boc" th:text="${rm.getName() + ' ' + rm.getLname()}"> AVINASH</b>
 									<tbody th:with="count=0">
 										 <tr>
@@ -50,13 +63,10 @@
 								 </table>
 								 <form autocomplete="off"  th:action="@{/leader/report/__${rm.getEmp_Id()}__}">
 									 <div class="row">
-									 	<div class='col-sm-12'>
+										 <div class='col-sm-10' style="margin: auto">
 											 <div class="form-group">
 											      <div class='input-group date date-timepicker'>
 											          <input type='text' data-range="true" data-multiple-dates-separator=" - " data-language="en"  class="form-control datepicker-here" name="daterange" placeholder="Select Date " />
-										          	  <span class="input-group-addon">
-											              <span class="glyphicon glyphicon-calendar"></span>
-											          </span>
 											       </div>
 											  </div>
 										 </div>
@@ -68,19 +78,47 @@
 					</div>
 				</div>
 			</div>
+			<center>
+				<div id="leadpie">
+				</div>
+			</center>
 		</div>
 	 </div>
    <div  layout:fragment="foot" th:remove="tag">
   <script src="/assets/air-datepicker/js/datepicker.js"></script>
   <script src="/assets/air-datepicker/js/i18n/datepicker.en.js"></script>
-  <script>
+	   <script th:inline="javascript">
   $('.datepicker-here').datepicker({
 	    autoClose: true,
 	    dateFormat: "yyyy/mm/dd"
 	});
+  google.charts.load('current', {packages: ['corechart']});
+
+  var mydata;
+
+  function drawChart() {
+	  // Define the chart to be drawn.
+	  var data = new google.visualization.DataTable();
+	  data.addColumn('string', 'Browser');
+	  data.addColumn('number', 'Percentage');
+
+	  data.addRows(rmdata);
+
+	  var options = {
+		  'backgroundColor': 'transparent',
+		  'title': 'All The Relation Manager Chart',
+		  'width': 550,
+		  'height': 400,
+		  is3D: true
+	  };
+
+	  var chart = new google.visualization.PieChart(document.getElementById('leadpie'));
+	  chart.draw(data, options);
+  }
+
+  google.charts.setOnLoadCallback(drawChart);
+
   </script>
   </div>
-</body>
-
 </body>
 </html>

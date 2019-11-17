@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorator="/layouts/default"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<div layout:fragment="head" th:remove="tag">
+    <title>ASRM</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <meta content="Author" name="WebThemez">
+    <style>
+        #scrool-gradient {
+            width: 100%;
+            overflow: auto;
+            max-height: 364px;
+            margin-bottom: 16px;
+        }
+
+        .sub {
+            line-height: 2.5;
+            padding-left: 5px;
+        }
+    </style>
+</div>
+<body id="body">
+<p layout:fragment="head_top">
+    ADMIN DASHBOARD
+</p>
+
+<div id="page" layout:fragment="content" th:remove="tag">
+    <div class="container">
+        <div class="nb-dashboard-title">
+            <h1>Enrollment</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="nb-dashboard-search">
+                    <form>
+                        <div class="input-group md-form form-sm form-2 pl-0">
+                            <input aria-label="Search" class="form-control my-0 py-1 red-border" id="sbox"
+                                   placeholder="Search" type="text">
+                            <div class="input-group-append">
+						    <span class="input-group-text red lighten-3" id="basic-text1">
+                                <i aria-hidden="true" class="fa fa-search "></i>
+                             </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="nb-dashboard-filter">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" id="scrool-gradient">
+            <div class="col-md-4" th:each="e,iterator : ${emps}">
+                <div class="nb-dashboard-box">
+                    <div class="nb-dashboard-inner">
+                        <div class="di-f-dashboad">
+                            <h3 th:text="${e.getName()}"></h3>
+                        </div>
+                        <p th:text="${e.getDesignationFullName()}"></p>
+                    </div>
+                    <div class="inner-nb-btm-dsh">
+                        <ul>
+                            <li><a class="showemp" href="#" th:data-id="${iterator.index}"><i class="fa fa-eye"></i></a><span>Show</span>
+                            </li>
+                            <li><a class="editemp" href="#" th:data-id="${iterator.index}"><i class="fa fa-pencil"></i></a><span>Edit</span>
+                            </li>
+                            <li><a class="deleteemp" href="#" th:data-id="${iterator.index}"><i class="fa fa-trash"></i></a><span>Delete</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="dashboard-statistics">
+            <div class="row">
+                <div class="nb-statistics-title">
+                    <h1>Statistics</h1>
+                </div>
+                <div class="col-md-3">
+                    <div class="dashboard-statistics-in">
+                        <h2>100</h2>
+                        <span>2 <i class="fa fa-arrow-up"></i></span>
+                        <br>
+                        <span>THIS WEEK</span>
+                        <p>TOTAL LEAD</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dashboard-statistics-in">
+                        <h2>100</h2>
+                        <span>2 <i class="fa fa-arrow-up"></i></span>
+                        <br>
+                        <span>THIS WEEK</span>
+                        <p>TOTAL LEAD</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dashboard-statistics-in">
+                        <h2>100</h2>
+                        <span>2 <i class="fa fa-arrow-up"></i></span>
+                        <br>
+                        <span>THIS WEEK</span>
+                        <p>TOTAL LEAD</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dashboard-statistics-in">
+                        <h2>100</h2>
+                        <span>2 <i class="fa fa-arrow-up"></i></span>
+                        <br>
+                        <span>THIS WEEK</span>
+                        <p>TOTAL LEAD</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- The Show Modal -->
+    <div class="modal" id="show-popup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header" style="padding-bottom: 3px;">
+                    <h4 class="modal-title" id="show_model_title"></h4>
+                    <span class="sub" id="s_deg">(Relation Manager)</span>
+                    <button class="close" data-dismiss="modal" type="button">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <b>EMP ID</b>
+                                    <div id="s_empid">V001</div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <b>Email</b>
+                                    <div id="s_email">V001</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item"><b>Mobile Number</b>
+                            <div id="s_mno">V001</div>
+                        </li>
+                        <li class="list-group-item"><b>Password</b>
+                            <div id="s_pass">EMP02</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button class="btn btn-danger" data-dismiss="modal" type="button">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- The Edit Modal -->
+    <div class="modal" id="pencil-popup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <form action="/admin/updateemp" method="post">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Employee</h4>
+                        <button class="close" data-dismiss="modal" type="button">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>NAME </label>
+                                    <input class="form-control" id="e_id" name="eid" type="hidden">
+                                    <input class="form-control" id="e_name" name="name" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input class="form-control" id="e_lname" name="lname" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input class="form-control" id="e_email" name="email" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Mobile Number</label>
+                                    <input class="form-control" id="e_mno" name="e_number" type="number">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Emp Code</label>
+                                    <input class="form-control" id="e_code" name="e_code" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input class="form-control" id="e_pass" name="e_pass" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Designation</label>
+                                    <select class="form-control" id="e_deg" name="deg">
+                                        <option value="RM">Relationship Manager</option>
+                                        <option value="LD">Team Leader</option>
+                                        <option value="MR">Manager</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>UPPER DESIGNATION</label>
+                                    <select class="form-control" id="e_deg_per" name="deg_per">
+                                        <option>Select Upper Designation</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="submit">Update</button>
+                        <button class="btn btn-danger" data-dismiss="modal" type="button">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Delete Modal -->
+    <div class="modal" id="trash-popup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/admin/delete_emp" method="post">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title text-center">Delete</h4>
+                        <button class="close" data-dismiss="modal" type="button">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="asrm-delete-pp">
+                            <div class="asrm-delete-img">
+                                <img src="/assets/images/delete-popup.gif">
+                            </div>
+                            <div class="asrm-delete-content">
+                                <p> Are you sure you want to delete this item?</p>
+                            </div>
+                            <input id="del_emp_id" name="empid" type="hidden">
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" id="delete_btn" type="submit">DELETE</button>
+                        <button class="btn btn-success" data-dismiss="modal" type="button">CANCEL</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script layout:fragment="foot">
+
+    var emps = JSON.parse('[[${json}]]'.replace(/&quot;/g, '"'));
+    var old_search = '', new_search = '';
+    $("#sbox").keyup(function (e) {
+        new_search = this.value;
+        if (old_search.length !== new_search.length && new_search.length != 0) {
+            search(new_search);
+        }
+        if (new_search.length == 0) {
+            displayall();
+        }
+        old_search = new_search;
+    });
+    var content = "";
+
+    function search(s) {
+        $("#scrool-gradient").empty();
+        for (var i = 0; i < emps.length; i++) {
+            var regExp = new RegExp('^' + s, "i");
+            if (regExp.test(emps[i].Name)) {
+                SetHtmlLayout(emps[i], i);
+            }
+        }
+    }
+
+    function displayall() {
+        $("#scrool-gradient").empty();
+        for (var i = 0; i < emps.length; i++) {
+            SetHtmlLayout(emps[i], i);
+        }
+    }
+
+    function SetHtmlLayout(emp, num) {
+        $("#scrool-gradient").append("<div class='col-md-4'><div class='nb-dashboard-box'><div class='nb-dashboard-inner'><div class='di-f-dashboad'><h3>" + emp.Name + "</h3></div><p>" + fullDesig(emp.Designation) + "</p></div><div class='inner-nb-btm-dsh'><ul><li><a href='#' class='showemp' data-id='" + num + "'><i class='fa fa-eye'></i></a><span>Show</span></li><li><a href='#' class='editemp' data-id='" + num + "'><i class='fa fa-pencil'></i></a><span>Edit</span></li><li><a href='#' class='deleteemp' data-id='" + num + "'><i class='fa fa-trash'></i></a><span>Delete</span></li></ul></div></div></div>");
+    }
+
+    function fullDesig(role) {
+        if (role == "RM") {
+            return "Relationship Manager";
+        } else if (role == "LD") {
+            return "Team Leader";
+        } else if (role == "MR") {
+            return "Manager";
+        } else {
+            return "Admin";
+        }
+    }
+
+    $(document).on('click', '.showemp', function (e) {
+        e.preventDefault();
+        var id = $(this).attr("data-id");
+        var emp = emps[id];
+        $("#show_model_title").text(emp.Name + " " + emp.Lname);
+        $("#s_deg").text(fullDesig(emp.Designation));
+        $("#s_empid").text(emp.Emp_Id);
+        $("#s_email").text(emp.Email);
+        $("#s_mno").text(emp.Mno);
+        $("#s_pass").text(emp.password);
+        $('#show-popup').modal('show');
+    });
+    $(document).on('click', '.editemp', function (e) {
+        e.preventDefault();
+        var id = $(this).attr("data-id");
+        var emp = emps[id];
+        $("#e_id").val(emp.id);
+        $("#e_name").val(emp.Name);
+        $("#e_lname").val(emp.Lname);
+        $("#e_email").val(emp.Email);
+        $("#e_mno").val(emp.Mno);
+        $("#e_code").val(emp.Emp_Id);
+        $("#e_pass").val(emp.password);
+        $("#e_deg").val(emp.Designation);
+        $("#e_deg").trigger('change');
+        $("#e_deg_per").val(emp.Manager_id);
+        $('#pencil-popup').modal('show');
+    });
+    $(document).on('click', '.deleteemp', function (e) {
+        e.preventDefault();
+        var id = $(this).attr("data-id");
+        var emp = emps[id];
+        $("#del_emp_id").val(emp.id);
+        $('#trash-popup').modal('show');
+    });
+    $(document).on('change', '#e_deg', function () {
+        var desg = this.value;
+        var status = true;
+        if (desg != "" && status == true) {
+            status = false;
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "/api/getEmpCode",
+                data: {role: desg},
+                success: function (response) {
+                    var a = JSON.stringify(response);
+                    var t = JSON.parse(a);
+                    $('#e_deg_per').empty();
+                    for (var i = 0; i < t.emps.length; i++) {
+                        $('#e_deg_per').append($("<option></option>").attr("value", t.emps[i].emp_Id).text(t.emps[i].name));
+                    }
+                    status = true;
+                }
+            });
+        }
+    });
+
+</script>
+</body>
+</html>
