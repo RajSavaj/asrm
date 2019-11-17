@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - code for fun (day02): 404 error page, Caveman mode - pure CSS</title>
+    <style type="text/css" rel="stylesheet">
+        /* latin-ext */
+        @font-face {
+            font-family: 'Concert One';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Concert One'), local('ConcertOne-Regular'), url(/assets/fonts/ConcertOne.woff2) format('woff2');
+            unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        /* latin */
+        @font-face {
+            font-family: 'Concert One';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Concert One'), local('ConcertOne-Regular'), url(/assets/fonts/ConcertOne_1.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+    </style>
+    <link href="assets/css/error_404.css"  rel="stylesheet">
+    <script>
+        window.console = window.console || function(t) {};
+    </script>
+    <script>
+        if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage("resize", "*");
+        }
+    </script>
+</head>
+<body translate="no">
+<div class="text"><p th:text="${status}">404</p></div>
+<div class="container">
+
+    <div class="caveman">
+        <div class="leg">
+            <div class="foot"><div class="fingers"></div></div>
+        </div>
+        <div class="leg">
+            <div class="foot"><div class="fingers"></div></div>
+        </div>
+        <div class="shape">
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="head">
+            <div class="eye"><div class="nose"></div></div>
+            <div class="mouth"></div>
+        </div>
+        <div class="arm-right"><div class="club"></div></div>
+    </div>
+
+    <div class="caveman">
+        <div class="leg">
+            <div class="foot"><div class="fingers"></div></div>
+        </div>
+        <div class="leg">
+            <div class="foot"><div class="fingers"></div></div>
+        </div>
+        <div class="shape">
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="head">
+            <div class="eye"><div class="nose"></div></div>
+            <div class="mouth"></div>
+        </div>
+        <div class="arm-right"><div class="club"></div></div>
+    </div>
+</div>
+
+<a href="" target="_blank">
+    <div id="link">
+        <p>Go Back Home</p>
+    </div>
+</a>
+
+<div class="error-msg" style="bottom: 10px">
+    <b th:text="${error}" style="margin-right: 5px;"></b>:
+    <p th:text="${message}" style="margin-left: 5px;"> </p>
+    <br>
+
+</div>
+
+<script id="rendered-js">
+</script>
+</body>
+</html>
